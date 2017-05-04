@@ -8,18 +8,18 @@
 
 
     -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         
         <item name="android:windowIsTranslucent">true</item>
         <item name="actionSheetStyle">@style/ActionSheetStyleiOS7</item>
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+   <!-- <style name="AppTheme" parent="AppBaseTheme">
         <item name="actionMenuTextAppearance">@style/ActionMenuTextStyle</item>
-        <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
+        &lt;!&ndash;<item name="android:windowAnimationStyle">@style/activityAnimation</item>&ndash;&gt;
+        &lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;
+    </style>-->
     <!-- animation 样式 -->
     <style name="activityAnimation" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>

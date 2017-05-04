@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -21,6 +23,7 @@ import com.xqd.meizhi.adapter.GirlShowAdapter;
 import com.xqd.meizhi.bean.GirlBean;
 import com.xqd.meizhi.bean.Parser;
 import com.xqd.meizhi.http.AbstractRequest;
+import com.xqd.meizhi.http.BaseRequest;
 import com.xqd.meizhi.utils.PictureUtils;
 import com.xqd.meizhi.utils.ViewUtil;
 import com.xqd.meizhi.view.PtrMaterialFrameLayout;
@@ -57,7 +60,7 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
 
             @Override
             public String getRelativeUrl() {
-                return "/data/福利";
+                return BaseRequest.URL_woman;
             }
 
             @Override
@@ -130,6 +133,7 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
 
     }
 
+    //申请权限回调
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -142,6 +146,26 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 1, 1, "关于");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())//得到被点击的item的itemId
+        {
+            case 1:
+                jump2Activity(AboutActivity.class);
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+
+
     }
 
     long last;
