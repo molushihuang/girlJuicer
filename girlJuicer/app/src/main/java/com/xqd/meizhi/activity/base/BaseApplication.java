@@ -29,14 +29,12 @@ public class BaseApplication extends QApplication {
         instance = this;
 
 
-
-
     }
 
 
     @Override
     public String getAppDir() {
-        return "appName";
+        return "girlJucicer";
     }
 
 

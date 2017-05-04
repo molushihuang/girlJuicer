@@ -1,6 +1,7 @@
 package com.xqd.meizhi.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 import com.anthole.quickdev.adapter.BaseAdapterHelper;
 import com.anthole.quickdev.adapter.QuickAdapter;
@@ -22,13 +23,20 @@ public class GirlShowAdapter extends QuickAdapter<GirlBean> {
     protected void convert(BaseAdapterHelper helper, final GirlBean item) {
 
         ImageView ivGirl = helper.getView(R.id.iv_girl);
-
         Glide.with(context).load(item.getUrl()).asBitmap().centerCrop().into(ivGirl);
+
+        ivGirl.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                mItemListener.onItemLongClick(item);
+                return false;
+            }
+        });
     }
 
     public static interface ItemListener {
         void onItemClick(GirlBean item);
-
+        void onItemLongClick(GirlBean item);
 
     }
 

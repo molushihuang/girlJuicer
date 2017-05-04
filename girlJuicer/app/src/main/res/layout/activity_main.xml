@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title_text_color="@color/white"
-            app:title_background="@color/titlebar_bg_black"
+            app:title_background="@color/blue"
             app:title_text="妹汁呀~">
 
     </com.xqd.meizhi.view.TitleBar>
