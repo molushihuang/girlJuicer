@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="titlebar"/>
+    <item type="id" name="multi_state_view"/>
+    <item type="id" name="ptr"/>
+    <item type="id" name="xlistview"/>
+    
+    <!-- statusbar 占位 -->
+    <item type="id" name="placeholder"/>
+
+
+    <item type="id" name="drawable_callback_tag"/>
+
+    
+    
+    <!-- zxing -->
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    
+</resources>

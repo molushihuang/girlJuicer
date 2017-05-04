@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#ff00ff</color>
+      <color name="action_text_color_normal" >#cfcfcf</color>
+    <color name="action_text_color_pressed" >#353535</color>
+    <color name="action_text_color_enabled" >#818585</color>
+    <color name="white">#ffffff</color>
+    <color name="true_black">#000000</color>
+</resources>
