@@ -6,8 +6,13 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +37,14 @@ import com.xqd.meizhi.view.xlist.XListView;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemListener {
+public class DrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GirlShowAdapter.ItemListener {
+
+    @Bind(R.id.main_toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
 
     @Bind(R.id.ptr)
     PtrMaterialFrameLayout ptr;
@@ -45,12 +57,19 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_drawer;
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         SystemBarTintInvoke.apply(this, R.color.blue, true);
+
+        setSupportActionBar(toolbar); //将toolbar设置为actionbar
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         adapter = new GirlShowAdapter(this, this);
         helper = new PullListHelper<>(this, true);
@@ -100,7 +119,7 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
             @Override
             public void onClick(View v) {
 
-                int checkCallPhonePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                int checkCallPhonePermission = ContextCompat.checkSelfPermission(DrawerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                 if (Build.VERSION.SDK_INT >= 23 && checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
 
                     String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -115,7 +134,7 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
                             Manifest.permission.WRITE_APN_SETTINGS};
 
                     savUrl = item.getUrl();
-                    ActivityCompat.requestPermissions(MainActivity.this, mPermissionList, 123);
+                    ActivityCompat.requestPermissions(DrawerActivity.this, mPermissionList, 123);
 
                 } else {
                     save(item.getUrl());
@@ -129,7 +148,7 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
 
     //保存图片
     public void save(String url) {
-        new PictureUtils.SaveImageTask(MainActivity.this).execute(url);
+        new PictureUtils.SaveImageTask(DrawerActivity.this).execute(url);
 
     }
 
@@ -147,6 +166,7 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
                 break;
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -168,17 +188,25 @@ public class MainActivity extends BaseActivity implements GirlShowAdapter.ItemLi
 
     }
 
-    long last;
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId())//得到被点击的item的itemId
+        {
+            case R.id.nav_about:
+                jump2Activity(GirlListViewActivity.class);
+                break;
+
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
     @Override
     public void onBackPressed() {
-        if (System.currentTimeMillis() - last > 2000) {
-            last = System.currentTimeMillis();
-            T.showShort(this, "再按一次返回键退出");
-
-            return;
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-        super.onBackPressed();
-
     }
 }

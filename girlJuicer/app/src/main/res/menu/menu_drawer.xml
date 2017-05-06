@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_girl"
+            android:title="girl" />
+        <item
+            android:id="@+id/nav_recommend"
+            android:title="recommend" />
+        <item
+            android:id="@+id/nav_android"
+            android:title="android" />
+        <item
+            android:id="@+id/nav_video"
+            android:title="video" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:title="share" />
+            <item
+                android:id="@+id/nav_about"
+                android:title="about" />
+        </menu>
+    </item>
+
+</menu>

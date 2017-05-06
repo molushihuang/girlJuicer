@@ -11,7 +11,7 @@ import com.anthole.quickdev.http.base.AsyncHttpClientUtil;
 import com.anthole.quickdev.ui.IProgressDialog;
 import com.anthole.quickdev.ui.QProgressDialog;
 import com.bumptech.glide.Glide;
-import com.xqd.meizhi.activity.MainActivity;
+import com.xqd.meizhi.activity.GirlListViewActivity;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public abstract class BaseActivity extends QFragmentActivity {
 		if(savedInstanceState!=null){
 
 			QAppManager.getAppManager().finishAllActivity();
-			jump2Activity(MainActivity.class);
+			jump2Activity(GirlListViewActivity.class);
 			return;
 		}
 

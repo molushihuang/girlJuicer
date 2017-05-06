@@ -13,6 +13,10 @@
     <string name="library">com.android.support:appcompat-v7:23.3.0 \ncom.android.support:support-v4:23.3.0
         \nglide-3.8.0 \ncom.google.code.gson:gson:2.3\nbutterknife-7.0.1</string>
 
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

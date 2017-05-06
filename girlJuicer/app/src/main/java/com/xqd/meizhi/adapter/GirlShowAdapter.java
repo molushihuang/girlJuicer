@@ -32,6 +32,12 @@ public class GirlShowAdapter extends QuickAdapter<GirlBean> {
                 return false;
             }
         });
+        ivGirl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mItemListener.onItemClick(item);
+            }
+        });
     }
 
     public static interface ItemListener {

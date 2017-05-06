@@ -8,7 +8,7 @@
 
 
     -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         
         <item name="android:windowIsTranslucent">true</item>
         <item name="actionSheetStyle">@style/ActionSheetStyleiOS7</item>

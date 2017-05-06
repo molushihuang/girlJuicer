@@ -22,7 +22,7 @@
                 android:name="design_height"
                 android:value="1136"/>
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.DrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -30,10 +30,12 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:name=".activity.AboutActivity"
-                >
+        <activity android:name=".activity.GirlListViewActivity">
+
         </activity>
+        <activity android:name=".activity.AboutActivity">
+        </activity>
+
     </application>
 
 </manifest>

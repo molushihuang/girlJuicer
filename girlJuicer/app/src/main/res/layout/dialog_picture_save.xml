@@ -3,11 +3,12 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/white">
+              android:background="@drawable/bg_white_stroke_white">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:id="@+id/save_ok"
             android:text="保存到手机"
             android:padding="15dip"
