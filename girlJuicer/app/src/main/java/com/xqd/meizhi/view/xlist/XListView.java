@@ -111,7 +111,7 @@ public class XListView extends ListView implements OnScrollListener {
 			// make sure "pull up" don't show a line in bottom when listview
 			// with one page
 			setFooterDividersEnabled(true);
-			// both "pull up" and "click" will invoke load more.
+			// both "pull up" and "click" will Invoke load more.
 			mFooterView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -142,7 +142,7 @@ public class XListView extends ListView implements OnScrollListener {
 	private void updateFooterHeight(float delta) {
 		int height = mFooterView.getBottomMargin() + (int) delta;
 		if (mEnablePullLoad && !mPullLoading) {
-			if (height > PULL_LOAD_MORE_DELTA) { // height enough to invoke load
+			if (height > PULL_LOAD_MORE_DELTA) { // height enough to Invoke load
 													// more.
 				mFooterView.setState(XListViewFooter.STATE_READY);
 			} else {
@@ -195,7 +195,7 @@ public class XListView extends ListView implements OnScrollListener {
 		default:
 			mLastY = -1; // reset
 			if (getLastVisiblePosition() == mTotalItemCount - 1) {
-				// invoke load more.
+				// Invoke load more.
 				if (mEnablePullLoad
 						&& mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA
 						&& !mPullLoading) {
@@ -246,7 +246,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * you can listen ListView.OnScrollListener or this one. it will invoke
+	 * you can listen ListView.OnScrollListener or this one. it will Invoke
 	 * onXScrolling when header/footer scroll back.
 	 */
 	public interface OnXScrollListener extends OnScrollListener {

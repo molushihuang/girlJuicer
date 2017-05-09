@@ -1,22 +1,21 @@
 package com.xqd.meizhi.activity;
 
+
 import android.Manifest;
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import butterknife.Bind;
 import com.anthole.quickdev.commonUtils.T;
 import com.anthole.quickdev.http.RequestParams;
@@ -29,8 +28,8 @@ import com.xqd.meizhi.bean.GirlBean;
 import com.xqd.meizhi.bean.Parser;
 import com.xqd.meizhi.http.AbstractRequest;
 import com.xqd.meizhi.http.BaseRequest;
+import com.xqd.meizhi.utils.Invoke;
 import com.xqd.meizhi.utils.PictureUtils;
-import com.xqd.meizhi.utils.ViewUtil;
 import com.xqd.meizhi.view.PtrMaterialFrameLayout;
 import com.xqd.meizhi.view.requestHelper.PullListHelper;
 import com.xqd.meizhi.view.xlist.XListView;
@@ -64,7 +63,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
     protected void initData(Bundle savedInstanceState) {
         SystemBarTintInvoke.apply(this, R.color.blue, true);
 
+//        toolbar.setTitle("444");
         setSupportActionBar(toolbar); //将toolbar设置为actionbar
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 //        drawer.setDrawerListener(toggle);
         drawer.addDrawerListener(toggle);
@@ -101,7 +102,6 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         });
         helper.refresh(200);
 
-
     }
 
     @Override
@@ -111,39 +111,51 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
     @Override
     public void onItemLongClick(final GirlBean item) {
-        final Dialog dialog = new Dialog(this);
-        ViewUtil.showCustomDialog(dialog, R.layout.dialog_picture_save);
-        TextView delete = (TextView) dialog.findViewById(R.id.save_ok);
 
-        delete.setOnClickListener(new View.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Tip")
+                .setMessage("save the picture?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int checkCallPhonePermission = ContextCompat.checkSelfPermission(DrawerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        if (Build.VERSION.SDK_INT >= 23 && checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+
+                            savUrl = item.getUrl();
+                            Invoke.phonePermission(DrawerActivity.this, 123);
+                        } else {
+                            save(item.getUrl());
+                        }
+                    }
+                }).setNegativeButton("no", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
 
-                int checkCallPhonePermission = ContextCompat.checkSelfPermission(DrawerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if (Build.VERSION.SDK_INT >= 23 && checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-
-                    String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.CALL_PHONE,
-                            Manifest.permission.READ_LOGS,
-                            Manifest.permission.READ_PHONE_STATE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.SET_DEBUG_APP,
-                            Manifest.permission.SYSTEM_ALERT_WINDOW,
-                            Manifest.permission.GET_ACCOUNTS,
-                            Manifest.permission.WRITE_APN_SETTINGS};
-
-                    savUrl = item.getUrl();
-                    ActivityCompat.requestPermissions(DrawerActivity.this, mPermissionList, 123);
-
-                } else {
-                    save(item.getUrl());
-                }
-
-
-                dialog.dismiss();
             }
-        });
+        }).create().show();
+
+        //自定义的弹框
+//        final Dialog dialog = new Dialog(this);
+//        ViewUtil.showCustomDialog(dialog, R.layout.dialog_picture_save);
+//        TextView delete = (TextView) dialog.findViewById(R.id.save_ok);
+//
+//        delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                int checkCallPhonePermission = ContextCompat.checkSelfPermission(DrawerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+//                if (Build.VERSION.SDK_INT >= 23 && checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+//
+//                    savUrl = item.getUrl();
+//                    Invoke.phonePermission(DrawerActivity.this,123);
+//                } else {
+//                    save(item.getUrl());
+//                }
+//
+//
+//                dialog.dismiss();
+//            }
+//        });
     }
 
     //保存图片
@@ -170,7 +182,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 1, 1, "关于");
+        menu.add(0, 1, 1, "about");
         return super.onCreateOptionsMenu(menu);
     }
 

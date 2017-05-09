@@ -17,9 +17,6 @@
 
         <android.support.v7.widget.Toolbar
                 android:id="@+id/main_toolbar"
-          
-                android:minHeight="30dp"
-                app:layout_scrollFlags="scroll|enterAlways"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"

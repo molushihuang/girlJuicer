@@ -26,13 +26,15 @@ public class AboutActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         SystemBarTintInvoke.apply(this, R.color.blue, true);
 
+        toolbar.setTitle("back");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true); // 决定左上角图标的右侧是否有向左的小箭头, true
         // 有小箭头，并且图标可以点击
         actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setTitle("返回");
+//        actionBar.setTitle("返回");
+
 
         tvVersion.setText(AppUtils.getVersionName(this));
     }

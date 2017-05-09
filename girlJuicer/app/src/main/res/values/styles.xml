@@ -1,15 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
 
         <!-- Actionbar color -->
         <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
 
-
+        <item name="toolbarStyle">@style/LightToolbar</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
         <item name="android:textCursorDrawable">@drawable/color_cursor</item>
+    </style>
+
+    <style name="LightToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/white</item>
     </style>
 
     <style name="AppThemeNormal" parent="AppBaseTheme"></style>
