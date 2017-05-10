@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/main_bg"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         >
@@ -32,6 +33,7 @@
     </com.xqd.meizhi.view.TitleBar>-->
     <com.xqd.meizhi.view.PtrMaterialFrameLayout
             android:id="@id/ptr"
+            android:layout_marginTop="20px"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:ptr_duration_to_close="200"

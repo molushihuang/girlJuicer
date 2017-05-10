@@ -26,8 +26,8 @@ public class CommonRequest {
 
 
 
-    public static RequestHandle yearReport(Context context, BaseResponseHandler responseHandler) {
-        String relativeUrl = "/api/report/yearUrl.check";
+    public static RequestHandle getGirl(Context context, String pageSize,String pageNum, BaseResponseHandler responseHandler) {
+        String relativeUrl = BaseRequest.URL_woman+ "/" + pageSize + "/" + pageNum;
         RequestParams params = new RequestParams();
         return get(context, relativeUrl, params, responseHandler);
     }

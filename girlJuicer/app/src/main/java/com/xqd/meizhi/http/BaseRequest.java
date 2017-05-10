@@ -27,5 +27,12 @@ public interface BaseRequest extends IDataSource<BaseResponseHandler> {
 
 
     public static final String URL_woman = "/data/福利";
+    public static final String URL_android = "/data/Android";
+    public static final String URL_ios = "/data/iOS";
+    public static final String URL_web = "/data/前端";
+    public static final String URL_recommend = "/data/瞎推荐";
+    public static final String URL_expend = "/data/拓展资源";
+    public static final String URL_video = "/data/休息视频";
+    public static final String URL_all = "/data/all";
 
 }

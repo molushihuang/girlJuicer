@@ -13,6 +13,12 @@ public class Constants {
         public final static String SLOW_NET = "网络不给力";
     }
 
+    public final static class IntentKeys {
+        public static final String URL = "URL";
+        public static final String TITLE = "TITLE";
+        public static final String TYPLE = "TYPLE";
+    }
+
     public static final class File {
 
         public static final String baseFolder = FileInvoke.getInstance().getAppDir().getPath();

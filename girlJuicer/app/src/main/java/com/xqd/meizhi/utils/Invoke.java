@@ -3,7 +3,11 @@ package com.xqd.meizhi.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
+import com.xqd.meizhi.Constants;
+import com.xqd.meizhi.activity.WebActivity;
 
 /**
  * Created by pherson on 2017-5-8.
@@ -35,5 +39,20 @@ public class Invoke {
 
         ActivityCompat.requestPermissions((Activity) context, mPermissionList, requestCode);
 
+    }
+
+    /**
+     * 打开网页
+     * @param context
+     * @param url
+     * @param title
+     */
+    public static void openLink(Context context, String url, String title) {
+        Intent intent = new Intent(context, WebActivity.class);
+        if (!TextUtils.isEmpty(title)) {
+            intent.putExtra(Constants.IntentKeys.TITLE, title);
+        }
+        intent.putExtra(Constants.IntentKeys.URL, url);
+        context.startActivity(intent);
     }
 }

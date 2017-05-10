@@ -3,27 +3,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_girl"
-            android:title="girl" />
+                android:id="@+id/nav_android"
+                android:title="android"/>
         <item
-            android:id="@+id/nav_recommend"
-            android:title="recommend" />
+                android:id="@+id/nav_ios"
+                android:title="ios"/>
         <item
-            android:id="@+id/nav_android"
-            android:title="android" />
+                android:id="@+id/nav_web"
+                android:title="web"/>
         <item
-            android:id="@+id/nav_video"
-            android:title="video" />
+                android:id="@+id/nav_recommend"
+                android:title="recommend"/>
+
+        <item
+                android:id="@+id/nav_expand"
+                android:title="expand"/>
+        <item
+                android:id="@+id/nav_video"
+                android:title="video"/>
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:title="share" />
+                    android:id="@+id/nav_share"
+                    android:title="share"/>
             <item
-                android:id="@+id/nav_about"
-                android:title="about" />
+                    android:id="@+id/nav_setting"
+                    android:title="setting"/>
         </menu>
     </item>
 

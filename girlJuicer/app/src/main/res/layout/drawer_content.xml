@@ -23,35 +23,16 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     </android.support.design.widget.AppBarLayout>
 
-    <com.xqd.meizhi.view.PtrMaterialFrameLayout
-            android:id="@id/ptr"
+    <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_widget"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:ptr_duration_to_close="200"
-            app:ptr_duration_to_close_header="500"
-            app:ptr_keep_header_when_refresh="true"
-            app:ptr_pull_to_fresh="false"
-            app:ptr_ratio_of_header_height_to_refresh="1.2"
-            app:ptr_resistance="1.7">
+            android:layout_height="match_parent">
 
-        <com.anthole.quickdev.ui.MultiStateView
-                android:id="@+id/multi_state_view"
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:msv_emptyView="@layout/include_no_data"
-                app:msv_errorView="@layout/include_no_net"
-                app:msv_loadingView="@layout/pull_layout_loading">
+                android:scrollbars="vertical"/>
 
-            <com.xqd.meizhi.view.xlist.XListView
-                    android:id="@id/xlistview"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:choiceMode="singleChoice"
-                    android:divider="@null"
-                    android:fadingEdge="none"
-                    android:listSelector="@android:color/transparent"
-                    android:scrollbarStyle="outsideOverlay"/>
-        </com.anthole.quickdev.ui.MultiStateView>
-    </com.xqd.meizhi.view.PtrMaterialFrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

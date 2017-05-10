@@ -75,13 +75,13 @@ public class PictureUtils {
 
             if (targetFile.exists()) {
 
-                T.showLong(context,"文件已经存在");
+                T.showLong(context,"picture already exists");
                 return;
             }
             String path = result.getPath();
             com.anthole.quickdev.commonUtils.fileUtils.FileUtils.copyFile(path, targetFile.getPath());//把下载好的图片复制到目标目录
 
-            T.showLong(context,"保存成功,图片路径" + targetFile.getPath());
+            T.showLong(context,"save successful,the path:" + targetFile.getPath());
             //系统广播，通知图库更新
             PictureUtils.scanFileAsync(context, targetFile.getPath());
             Log.e("保存路径",targetFile.getPath());

@@ -12,52 +12,54 @@ import com.anthole.quickdev.ui.ViewPagerFixed;
 import java.util.List;
 
 public class PhotoPreviewActivity extends Activity implements PhotoPagerAdapter.PhotoViewClickListener {
-	
-	public static final String EXTRA_PHOTOS = "extra_photos";
-	public static final String EXTRA_CURRENT_ITEM = "extra_current_item";
-	private int currentItem = 0;
-	private PhotoPagerAdapter mPagerAdapter;
-	ViewPagerFixed mViewPager;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_photo_preview);
-		SystemBarTintInvoke.apply(this, R.color.true_black, true);
-		List<String> pathArr = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
-		mViewPager=(ViewPagerFixed)findViewById(R.id.vp_photos);
-		currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
-		mPagerAdapter = new PhotoPagerAdapter(this, pathArr);
-		mPagerAdapter.setPhotoViewClickListener(this);
-		mViewPager.setAdapter(mPagerAdapter);
-		mViewPager.setCurrentItem(currentItem);
-		mViewPager.setOffscreenPageLimit(1);
+    public static final String EXTRA_PHOTOS = "extra_photos";
+    public static final String EXTRA_CURRENT_ITEM = "extra_current_item";
+    private int currentItem = 0;
+    private PhotoPagerAdapter mPagerAdapter;
+    ViewPagerFixed mViewPager;
 
-		mViewPager
-				.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-					@Override
-					public void onPageScrolled(int position,
-											   float positionOffset, int positionOffsetPixels) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_photo_preview);
+        SystemBarTintInvoke.apply(this, R.color.true_black, true);
 
-					}
+        List<String> pathArr = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
+        currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
 
-					@Override
-					public void onPageSelected(int position) {
+        mViewPager = (ViewPagerFixed) findViewById(R.id.vp_photos);
+        mPagerAdapter = new PhotoPagerAdapter(this, pathArr);
+        mPagerAdapter.setPhotoViewClickListener(this);
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setCurrentItem(currentItem);
+        mViewPager.setOffscreenPageLimit(1);
 
-					}
+        mViewPager
+                .addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position,
+                                               float positionOffset, int positionOffsetPixels) {
 
-					@Override
-					public void onPageScrollStateChanged(int state) {
+                    }
 
-					}
-				});
-	}
+                    @Override
+                    public void onPageSelected(int position) {
 
-	@Override
-	public void OnPhotoTapListener(View view, float v, float v1) {
-		finish();
-		
-	}
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void OnPhotoTapListener(View view, float v, float v1) {
+        finish();
+
+    }
 
 
 }

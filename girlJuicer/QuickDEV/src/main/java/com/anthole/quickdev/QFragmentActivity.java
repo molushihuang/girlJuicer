@@ -50,7 +50,7 @@ public abstract class QFragmentActivity extends AutoLayoutFragmentActivity {
         dismissLoadingDialog();
         KeyBoardUtils.hideSoftInput(this);
         super.finish();
-        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+//        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
 
     }
 
@@ -185,7 +185,7 @@ public abstract class QFragmentActivity extends AutoLayoutFragmentActivity {
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+//        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
     }
 
     IntentFilter filter;

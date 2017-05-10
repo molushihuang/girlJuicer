@@ -1,42 +1,37 @@
 package com.xqd.meizhi.activity;
 
 
-import android.Manifest;
-import android.content.DialogInterface;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import butterknife.Bind;
-import com.anthole.quickdev.commonUtils.T;
-import com.anthole.quickdev.http.RequestParams;
+import com.anthole.quickdev.http.RequestHandle;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
-import com.anthole.quickdev.ui.RequestHelper.base.IParser;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
-import com.xqd.meizhi.adapter.GirlShowAdapter;
+import com.xqd.meizhi.adapter.GirlRecycleAdapter;
 import com.xqd.meizhi.bean.GirlBean;
 import com.xqd.meizhi.bean.Parser;
-import com.xqd.meizhi.http.AbstractRequest;
-import com.xqd.meizhi.http.BaseRequest;
-import com.xqd.meizhi.utils.Invoke;
-import com.xqd.meizhi.utils.PictureUtils;
-import com.xqd.meizhi.view.PtrMaterialFrameLayout;
-import com.xqd.meizhi.view.requestHelper.PullListHelper;
-import com.xqd.meizhi.view.xlist.XListView;
+import com.xqd.meizhi.http.BaseResponseHandler;
+import com.xqd.meizhi.http.CommonRequest;
+import com.xqd.meizhi.http.ws_code;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GirlShowAdapter.ItemListener {
+import static com.xqd.meizhi.Constants.IntentKeys.TYPLE;
+
+public class DrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GirlRecycleAdapter.ItemListener {
 
     @Bind(R.id.main_toolbar)
     Toolbar toolbar;
@@ -44,15 +39,17 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
     NavigationView navigationView;
+    @Bind(R.id.swipe_refresh_widget)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @Bind(R.id.recycleview)
+    RecyclerView mRecyclerView;
 
-    @Bind(R.id.ptr)
-    PtrMaterialFrameLayout ptr;
-    @Bind(R.id.xlistview)
-    XListView xlistview;
+    private List<GirlBean> mGirlBeanList = new ArrayList<>();
+    GirlRecycleAdapter mRecycleAdapter;
+    private boolean mIsFirstTimeTouchBottom = true;
+    private int mPageNum = 1;
+    private String mPageSize = "10";
 
-    GirlShowAdapter adapter;
-    PullListHelper<GirlBean> helper;
-    String savUrl;
 
     @Override
     protected int getLayoutId() {
@@ -67,116 +64,114 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         setSupportActionBar(toolbar); //将toolbar设置为actionbar
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        adapter = new GirlShowAdapter(this, this);
-        helper = new PullListHelper<>(this, true);
-        helper.setPtr(ptr);
-        helper.setXListView(xlistview, adapter);
-        helper.setDataSource(new AbstractRequest(this) {
+        mRecycleAdapter = new GirlRecycleAdapter(this, this);
 
+        SpacesItemDecoration decoration = new SpacesItemDecoration(16);
+        mRecyclerView.addItemDecoration(decoration);
+        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mRecycleAdapter);
+        mRecyclerView.addOnScrollListener(getOnBottomListener(layoutManager));
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public String getRelativeUrl() {
-                return BaseRequest.URL_woman;
-            }
+            public void onRefresh() {
+                loadData(1, true);
 
-            @Override
-            public RequestParams getParams() {
-                RequestParams params = new RequestParams();
-
-                return params;
             }
         });
-        helper.setParser(new IParser<GirlBean>() {
-
-            @Override
-            public List<GirlBean> parseList(String data) {
-
-//                String subData = JSONUtils.getString(data, "list", "");
-                List<GirlBean> list = Parser.parseFriendApplyList(data);
-                return list;
-            }
-        });
-        helper.refresh(200);
+        loadData(1, true);
 
     }
 
-    @Override
-    public void onItemClick(GirlBean item) {
-
-    }
-
-    @Override
-    public void onItemLongClick(final GirlBean item) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tip")
-                .setMessage("save the picture?")
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int checkCallPhonePermission = ContextCompat.checkSelfPermission(DrawerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                        if (Build.VERSION.SDK_INT >= 23 && checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-
-                            savUrl = item.getUrl();
-                            Invoke.phonePermission(DrawerActivity.this, 123);
-                        } else {
-                            save(item.getUrl());
-                        }
+    RecyclerView.OnScrollListener getOnBottomListener(final StaggeredGridLayoutManager layoutManager) {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView rv, int dx, int dy) {
+                boolean isBottom = layoutManager.findLastCompletelyVisibleItemPositions(new int[2])[1] >= mRecycleAdapter.getItemCount() - 6;
+                if (!mSwipeRefreshLayout.isRefreshing() && isBottom) {
+                    if (!mIsFirstTimeTouchBottom) {
+//                        mSwipeRefreshLayout.setRefreshing(true);
+                        mPageNum += 1;
+                        loadData(mPageNum, false);
+                    } else {
+                        mIsFirstTimeTouchBottom = false;
                     }
-                }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                }
+            }
+        };
+    }
+
+    /**
+     * 请求数据
+     *
+     * @param pageNum
+     * @param clean
+     */
+    public void loadData(int pageNum, final boolean clean) {
+        RequestHandle requestHandle = CommonRequest.getGirl(this, mPageSize, pageNum + "", new BaseResponseHandler() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onSuccess(String data) {
+                if (clean) {
+                    mGirlBeanList.clear();
+                }
+                mGirlBeanList = Parser.parseFriendApplyList(data);
+                mRecycleAdapter.addAll(mGirlBeanList);
+
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(ws_code code, String message) {
 
             }
-        }).create().show();
-
-        //自定义的弹框
-//        final Dialog dialog = new Dialog(this);
-//        ViewUtil.showCustomDialog(dialog, R.layout.dialog_picture_save);
-//        TextView delete = (TextView) dialog.findViewById(R.id.save_ok);
-//
-//        delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                int checkCallPhonePermission = ContextCompat.checkSelfPermission(DrawerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//                if (Build.VERSION.SDK_INT >= 23 && checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-//
-//                    savUrl = item.getUrl();
-//                    Invoke.phonePermission(DrawerActivity.this,123);
-//                } else {
-//                    save(item.getUrl());
-//                }
-//
-//
-//                dialog.dismiss();
-//            }
-//        });
+        });
     }
 
-    //保存图片
-    public void save(String url) {
-        new PictureUtils.SaveImageTask(DrawerActivity.this).execute(url);
+    public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
-    }
+        private int space;
 
-    //申请权限回调
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case 123:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    save(savUrl);
-                } else {
-                    T.showShort(this, "很遗憾您手机6.0系统分享权限设置失败");
-
-                }
-                break;
+        public SpacesItemDecoration(int space) {
+            this.space = space;
         }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+            if (parent.getChildAdapterPosition(view) == 0) {
+                outRect.top = space;
+            }
+        }
+    }
+
+    @Override
+    public void onItemClick(final GirlBean item, int posion, View transitView) {
+
+        List<String> pathArr = new ArrayList<>();
+        for (GirlBean girlBean : mRecycleAdapter.getData()) {
+            pathArr.add(girlBean.getUrl());
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(PictruePreviewActivity.EXTRA_PHOTOS, (ArrayList<String>) pathArr);
+        bundle.putInt(PictruePreviewActivity.EXTRA_CURRENT_ITEM, posion);
+        jump2Activity(PictruePreviewActivity.class, bundle);
+
+        // TODO: 2017-5-10 动画待研究 
+//        Intent intent = PictruePreviewActivity.newIntent(this, posion, pathArr);
+//        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, transitView, PictruePreviewActivity.TRANSIT_PIC);
+//        try {
+//            ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
+//        } catch (IllegalArgumentException e) {
+//            e.printStackTrace();
+//            startActivity(intent);
+//        }
     }
 
 
@@ -202,13 +197,30 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        Bundle bundle = new Bundle();
         switch (item.getItemId())//得到被点击的item的itemId
         {
-            case R.id.nav_about:
-                jump2Activity(GirlListViewActivity.class);
+            case R.id.nav_android:
+                bundle.putString(TYPLE, "android");
+                break;
+            case R.id.nav_ios:
+                bundle.putString(TYPLE, "ios");
+                break;
+            case R.id.nav_web:
+                bundle.putString(TYPLE, "web");
+                break;
+            case R.id.nav_recommend:
+                bundle.putString(TYPLE, "recommend");
+                break;
+            case R.id.nav_expand:
+                bundle.putString(TYPLE, "expend");
+                break;
+            case R.id.nav_video:
+                bundle.putString(TYPLE, "video");
                 break;
 
         }
+        jump2Activity(AndroidActivity.class, bundle);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

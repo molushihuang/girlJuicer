@@ -26,7 +26,8 @@ public class AboutActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
         SystemBarTintInvoke.apply(this, R.color.blue, true);
 
-        toolbar.setTitle("back");
+        toolbar.setTitle("about");
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
