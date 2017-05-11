@@ -2,12 +2,18 @@ package com.xqd.meizhi.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import com.xqd.meizhi.Constants;
 import com.xqd.meizhi.activity.WebActivity;
+import com.xqd.meizhi.bean.GirlBean;
+
+import java.io.Serializable;
+
+import static com.xqd.meizhi.Constants.IntentKeys.GIRLBEAN;
 
 /**
  * Created by pherson on 2017-5-8.
@@ -54,5 +60,26 @@ public class Invoke {
         }
         intent.putExtra(Constants.IntentKeys.URL, url);
         context.startActivity(intent);
+    }
+
+    public static void openLink(Context context, String url, String title,GirlBean item) {
+        Intent intent = new Intent(context, WebActivity.class);
+        if (!TextUtils.isEmpty(title)) {
+            intent.putExtra(Constants.IntentKeys.TITLE, title);
+        }
+        intent.putExtra(Constants.IntentKeys.URL, url);
+        intent.putExtra(GIRLBEAN, (Serializable) item);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 实现文本复制功能 add by wangqianzhou
+     *
+     * @param content
+     */
+    public static void clipboardCopy(Context context,String content) {
+        // 得到剪贴板管理器
+        ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(content);
     }
 }

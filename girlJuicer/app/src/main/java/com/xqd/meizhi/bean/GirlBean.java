@@ -1,12 +1,15 @@
 package com.xqd.meizhi.bean;
 
+import com.anthole.quickdev.commonUtils.StringUtils;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by pherson on 2017-5-3.
  */
 
-public class GirlBean  {
+public class GirlBean implements Serializable {
 
 
     private String _id;
@@ -26,7 +29,16 @@ public class GirlBean  {
     }
 
     public List<String> getImages() {
-        return images;
+        if (images == null || images.size() == 0)
+            return null;
+        else{
+            if(StringUtils.isEmpty(images.get(0))){
+                return null;
+            }else{
+                return images;
+
+            }
+        }
     }
 
     public void setImages(List<String> images) {
@@ -60,8 +72,9 @@ public class GirlBean  {
     public String getUrl() {
         return url;
     }
+
     public String getSmallUrl() {
-        return url+ "?imageView2/0/w/400";
+        return url + "?imageView2/0/w/400";
     }
 
     public void setUrl(String url) {
@@ -69,7 +82,7 @@ public class GirlBean  {
     }
 
     public String getWho() {
-        return who;
+        return StringUtils.isEmpty(who) ? "" : who;
     }
 
     public void setWho(String who) {

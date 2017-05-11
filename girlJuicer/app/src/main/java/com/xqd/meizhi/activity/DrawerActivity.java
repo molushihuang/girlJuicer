@@ -202,25 +202,36 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         {
             case R.id.nav_android:
                 bundle.putString(TYPLE, "android");
+                jump2Activity(AndroidActivity.class, bundle);
                 break;
             case R.id.nav_ios:
                 bundle.putString(TYPLE, "ios");
+                jump2Activity(AndroidActivity.class, bundle);
                 break;
             case R.id.nav_web:
                 bundle.putString(TYPLE, "web");
+                jump2Activity(AndroidActivity.class, bundle);
                 break;
             case R.id.nav_recommend:
                 bundle.putString(TYPLE, "recommend");
+                jump2Activity(AndroidActivity.class, bundle);
                 break;
             case R.id.nav_expand:
                 bundle.putString(TYPLE, "expend");
+                jump2Activity(AndroidActivity.class, bundle);
                 break;
             case R.id.nav_video:
                 bundle.putString(TYPLE, "video");
+                jump2Activity(AndroidActivity.class, bundle);
+                break;
+            case R.id.nav_collections:
+                jump2Activity(CollectionActivity.class, bundle);
+                break;
+            default:
+                jump2Activity(AndroidActivity.class, bundle);
                 break;
 
         }
-        jump2Activity(AndroidActivity.class, bundle);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -32,11 +32,11 @@ public class AndroidShowAdapter extends QuickAdapter<GirlBean> {
             ivGirl.setVisibility(View.GONE);
         } else {
             ivGirl.setVisibility(View.VISIBLE);
-            Glide.with(context).load(item.getImages().get(0) + "?imageView2/0/w/100").asBitmap().centerCrop().into(ivGirl);
+            Glide.with(context).load(item.getImages().get(0) + "?imageView2/0/w/200").asBitmap().centerCrop().into(ivGirl);
 
         }
         tvDse.setText(item.getDesc());
-        ivWho.setText("作者 * " + item.getWho());
+        ivWho.setText(item.getType()+"   作者 * " + item.getWho());
 
         rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override

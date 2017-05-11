@@ -36,7 +36,7 @@ public class AndroidActivity extends BaseActivity implements AndroidShowAdapter.
     AndroidShowAdapter adapter;
     PullListHelper<GirlBean> helper;
 
-    String title;
+    String title = "";
 
     @Override
     protected int getLayoutId() {
@@ -47,7 +47,8 @@ public class AndroidActivity extends BaseActivity implements AndroidShowAdapter.
     protected void initData(Bundle savedInstanceState) {
         SystemBarTintInvoke.apply(this, R.color.blue, true);
 
-        title = getIntent().getStringExtra(TYPLE);
+        if (getIntent().hasExtra(TYPLE))
+            title = getIntent().getStringExtra(TYPLE);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
@@ -64,17 +65,17 @@ public class AndroidActivity extends BaseActivity implements AndroidShowAdapter.
 
             @Override
             public String getRelativeUrl() {
-                if(title.equals("android")){
+                if (title.equals("android")) {
                     return BaseRequest.URL_android;
-                }else if(title.equals("ios")){
+                } else if (title.equals("ios")) {
                     return BaseRequest.URL_ios;
-                }else if(title.equals("web")){
+                } else if (title.equals("web")) {
                     return BaseRequest.URL_web;
-                }else if(title.equals("recommend")){
+                } else if (title.equals("recommend")) {
                     return BaseRequest.URL_recommend;
-                }else if(title.equals("expend")){
+                } else if (title.equals("expend")) {
                     return BaseRequest.URL_expend;
-                }else if(title.equals("video")){
+                } else if (title.equals("video")) {
                     return BaseRequest.URL_video;
                 }
                 return BaseRequest.URL_all;
@@ -105,8 +106,9 @@ public class AndroidActivity extends BaseActivity implements AndroidShowAdapter.
 
     @Override
     public void onItemClick(GirlBean item) {
-        Invoke.openLink(this, item.getUrl(), item.getDesc());
+        Invoke.openLink(this, item.getUrl(), item.getDesc(),item);
     }
+
 
 
     @Override

@@ -23,17 +23,10 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
     </android.support.design.widget.AppBarLayout>
 
-    <!--<ProgressBar
-            android:id="@+id/pb_web"
-            style="?android:attr/progressBarStyleHorizontal"
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_marginTop="30px"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:maxHeight="2dp"
-            android:minHeight="2dp"
-            android:progressDrawable="@drawable/web_progress"/>-->
-    <WebView
-            android:id="@+id/webview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
 </LinearLayout>

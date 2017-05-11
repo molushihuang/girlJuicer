@@ -2,6 +2,8 @@ package com.xqd.meizhi.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -9,21 +11,28 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.webkit.*;
 import butterknife.Bind;
 import com.anthole.quickdev.commonUtils.StringUtils;
+import com.anthole.quickdev.commonUtils.T;
 import com.anthole.quickdev.http.PersistentCookieStore;
 import com.anthole.quickdev.http.base.AsyncHttpClientUtil;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.xqd.meizhi.Constants;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
+import com.xqd.meizhi.bean.GirlBean;
+import com.xqd.meizhi.db.DataBaseHelper;
+import com.xqd.meizhi.utils.Invoke;
 import cz.msebera.android.httpclient.cookie.Cookie;
 
 import java.util.List;
+
+import static com.xqd.meizhi.Constants.IntentKeys.GIRLBEAN;
 
 public class WebActivity extends BaseActivity {
 
@@ -32,9 +41,13 @@ public class WebActivity extends BaseActivity {
     WebView webview;
     @Bind(R.id.main_toolbar)
     Toolbar toolbar;
+//    @Bind(R.id.pb_web)
+//    ProgressBar pb;
 
     String title;
     String url;
+    GirlBean mGirlBean;
+    boolean hasBean = false;
 
     @Override
     public int getLayoutId() {
@@ -48,6 +61,12 @@ public class WebActivity extends BaseActivity {
         Intent intent = getIntent();
         title = intent.hasExtra(Constants.IntentKeys.TITLE) ? intent.getStringExtra(Constants.IntentKeys.TITLE) : "";
         url = intent.hasExtra(Constants.IntentKeys.URL) ? intent.getStringExtra(Constants.IntentKeys.URL) : "";
+
+        if (intent.hasExtra(GIRLBEAN)) {
+            mGirlBean = (GirlBean) intent.getSerializableExtra(GIRLBEAN);
+            hasBean = true;
+
+        }
 
         toolbar.setTitle(title);
 
@@ -130,12 +149,15 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                dismissLoadingDialog();
+
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
 
+                showLoadingDialog(null);
             }
 
             @Override
@@ -162,6 +184,85 @@ public class WebActivity extends BaseActivity {
         CookieSyncManager.getInstance().sync();
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 1, 1, "Open with browser");
+        menu.add(0, 2, 2, "Copy link");
+        menu.add(0, 3, 3, "Collection");
+        menu.add(0, 4, 4, "Share");
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:// 点击返回图标事件
+                this.finish();
+                break;
+            case 1:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                break;
+            case 2:
+                Invoke.clipboardCopy(this, url);
+                T.showShort(this, "Copied to clipboard");
+                break;
+            case 3:
+                boolean hasTile = false;
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(this, "collection_store.db", null, 2);
+                SQLiteDatabase db = dataBaseHelper.getWritableDatabase();
+
+                Cursor cursor1 = db.rawQuery("select * from collection", null);
+                if (cursor1.moveToFirst()) {
+                    do {
+                        if (title.equals(cursor1.getString(cursor1.getColumnIndex("title")))) {
+                            hasTile = true;
+                        }
+                    } while (cursor1.moveToNext());
+                }
+                if (hasTile) {
+                    T.showShort(this, "already collected ");
+                } else {
+                    db.execSQL("insert into collection(title,url,myId,createdAt,type,who,images)values(?,?,?,?,?,?,?)",
+                            new String[]{title, url, hasBean ? mGirlBean.get_id() : "", hasBean ? mGirlBean.getCreatedAt() : "", hasBean ? mGirlBean.getType() : ""
+                                    , hasBean ? mGirlBean.getWho() : "", hasBean ? (mGirlBean.getImages() == null ? "" : mGirlBean.getImages().get(0)) : ""});
+                    T.showShort(this, "collection success ");
+                }
+
+                cursor1.close();
+
+//                ContentValues contentValues = new ContentValues();
+//                contentValues.put("title", title);
+//                contentValues.put("url", url);
+//
+//                db.insert("collection", null, contentValues);
+
+                break;
+            case 4:
+                DataBaseHelper dataBaseHelper2 = new DataBaseHelper(this, "collection_store.db", null, 2);
+                SQLiteDatabase db2 = dataBaseHelper2.getWritableDatabase();
+                Cursor cursor = db2.rawQuery("select * from collection", null);
+                if (cursor.moveToFirst()) {
+                    do {
+                        Log.e("title=", cursor.getString(cursor.getColumnIndex("title")));
+                        Log.e("url=", cursor.getString(cursor.getColumnIndex("url")));
+                        Log.e("myId=", cursor.getString(cursor.getColumnIndex("myId")));
+                        Log.e("createdAt=", cursor.getString(cursor.getColumnIndex("createdAt")));
+                        Log.e("type=", cursor.getString(cursor.getColumnIndex("type")));
+                        Log.e("who=", cursor.getString(cursor.getColumnIndex("who")));
+                        Log.e("images=", cursor.getString(cursor.getColumnIndex("images")));
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -181,15 +282,6 @@ public class WebActivity extends BaseActivity {
             webview.goBack();
         } else {
             super.onBackPressed();
-        }
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:// 点击返回图标事件
-                this.finish();
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

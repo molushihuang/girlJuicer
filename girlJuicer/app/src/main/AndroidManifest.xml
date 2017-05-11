@@ -63,6 +63,12 @@
                   android:launchMode="singleTop"
                   android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".activity.CollectionActivity"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:hardwareAccelerated="false"
+                  android:launchMode="singleTop"
+                  android:screenOrientation="portrait">
+        </activity>
 
 
 

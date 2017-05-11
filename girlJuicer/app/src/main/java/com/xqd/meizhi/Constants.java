@@ -17,6 +17,7 @@ public class Constants {
         public static final String URL = "URL";
         public static final String TITLE = "TITLE";
         public static final String TYPLE = "TYPLE";
+        public static final String GIRLBEAN = "GIRLBEAN";
     }
 
     public static final class File {

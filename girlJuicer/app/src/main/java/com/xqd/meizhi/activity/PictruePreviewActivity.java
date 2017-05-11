@@ -42,7 +42,7 @@ public class PictruePreviewActivity extends BaseActivity implements PicturePager
     PicturePagerAdapter mPagerAdapter;
     String savUrl;
 
-    public static Intent newIntent(Context context, int  currentItem, List<String> pathArr) {
+    public static Intent newIntent(Context context, int currentItem, List<String> pathArr) {
         Intent intent = new Intent(context, PictruePreviewActivity.class);
         intent.putStringArrayListExtra(EXTRA_PHOTOS, (ArrayList<String>) pathArr);
         intent.putExtra(EXTRA_CURRENT_ITEM, currentItem);
@@ -97,32 +97,17 @@ public class PictruePreviewActivity extends BaseActivity implements PicturePager
     @Override
     public void onItemLongClik(final String url) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder
-//                .setTitle("Tip")
-//                .setMessage("save the picture?")
-                .setItems(new String[]{"save the picture"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        builder.setItems(new String[]{"save the picture"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                        switch (which) {
-                            case 0:
-                                checkPermission(url);
-                                break;
-                        }
-                    }
-                })
-//                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        checkPermission(url);
-//                    }
-//                })
-//                .setNegativeButton("no", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                })
+                switch (which) {
+                    case 0:
+                        checkPermission(url);
+                        break;
+                }
+            }
+        })
                 .create().show();
 
         // 自定义的弹框

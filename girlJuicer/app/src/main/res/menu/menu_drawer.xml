@@ -26,8 +26,8 @@
     <item android:title="Communicate">
         <menu>
             <item
-                    android:id="@+id/nav_share"
-                    android:title="share"/>
+                    android:id="@+id/nav_collections"
+                    android:title="collections"/>
             <item
                     android:id="@+id/nav_setting"
                     android:title="setting"/>
