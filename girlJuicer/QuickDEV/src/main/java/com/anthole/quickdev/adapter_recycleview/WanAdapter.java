@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.data;
+
 /**
  * 可以添加多个透视图、尾视图的适配器
  * 只需重写简单方法即可
@@ -163,6 +165,9 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
 	{
 		mDatas.remove(index);
 		notifyItemRemoved(index);
+        if(index != mDatas.size()){      // 这个判断的意义就是如果移除的是最后一个，就不用管它了
+            notifyItemRangeChanged(index, mDatas.size() - index);//加这个是为了在移除的时候防止崩溃和错位
+        }
 	}
 
 	public void replaceAll(List<T> elem)

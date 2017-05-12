@@ -63,6 +63,8 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 //        toolbar.setTitle("444");
         setSupportActionBar(toolbar); //将toolbar设置为actionbar
 
+//        drawer.setScrimColor(Color.RED);
+//        drawer.setDrawerShadow(R.drawable.bg_white_stroke_white, GravityCompat.START);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -233,6 +235,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
         }
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 

@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import butterknife.Bind;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
@@ -94,16 +93,14 @@ public class CollectionActivity extends BaseActivity implements CollectionAdapte
     @Override
     public void onItemLongClick(final GirlBean item, final int posion) {
 
-        Log.e("position>>>>>>>>>>>>>", posion + "");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Tip")
                 .setMessage("delete it ?")
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        
+
                         mCollectionAdapter.remove(posion);
-                        mCollectionAdapter.notifyDataSetChanged();
 
                         DataBaseHelper dataBaseHelper2 = new DataBaseHelper(CollectionActivity.this, "collection_store.db", null, 2);
                         SQLiteDatabase db2 = dataBaseHelper2.getWritableDatabase();

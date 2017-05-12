@@ -6,12 +6,12 @@
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
 
     <string name="introduce">因为逛论坛的时候看到了代码家干货集中营的开放的api接口，就想着做一个app练练手，每天一张精选妹纸图（长按保存）、
-        一个精选小视频（1.0还没有做），一篇程序猿精选干货（也还没做），后面会逐渐添加功能和新特性，工作空余时间写的，时间不多，请轻拍。
+        一个精选小视频（1.0还没有做），一篇程序猿精选干货，后面会逐渐添加功能和新特性，工作空余时间写的，时间不多，请轻拍。
         \n\n数据内容来源于代码家的 http://gank.io </string>
 
     <string name="appCoder">安卓端：GaryXie \n\n个人主页：https://github.com/molushihuang</string>
     <string name="library">com.android.support:appcompat-v7:23.3.0 \ncom.android.support:support-v4:23.3.0
-        \nglide-3.8.0 \ncom.google.code.gson:gson:2.3\nbutterknife-7.0.1</string>
+        \nglide-3.8.0 \ncom.google.code.gson:gson:2.3\nbutterknife-7.0.1\nphotoview-library-1.2.2\ncom.android.support:design:23.3.0\ncom.yipianfengye:MLog:1.0.0</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

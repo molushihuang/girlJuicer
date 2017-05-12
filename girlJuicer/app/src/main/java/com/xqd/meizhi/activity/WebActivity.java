@@ -149,7 +149,7 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                dismissLoadingDialog();
+//                dismissLoadingDialog();
 
             }
 
@@ -157,7 +157,7 @@ public class WebActivity extends BaseActivity {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
 
-                showLoadingDialog(null);
+//                showLoadingDialog(null);
             }
 
             @Override
@@ -190,7 +190,7 @@ public class WebActivity extends BaseActivity {
         menu.add(0, 1, 1, "Open with browser");
         menu.add(0, 2, 2, "Copy link");
         menu.add(0, 3, 3, "Collection");
-        menu.add(0, 4, 4, "Share");
+//        menu.add(0, 4, 4, "Share");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -225,9 +225,13 @@ public class WebActivity extends BaseActivity {
                 if (hasTile) {
                     T.showShort(this, "already collected ");
                 } else {
+//                    db.beginTransaction();
                     db.execSQL("insert into collection(title,url,myId,createdAt,type,who,images)values(?,?,?,?,?,?,?)",
                             new String[]{title, url, hasBean ? mGirlBean.get_id() : "", hasBean ? mGirlBean.getCreatedAt() : "", hasBean ? mGirlBean.getType() : ""
                                     , hasBean ? mGirlBean.getWho() : "", hasBean ? (mGirlBean.getImages() == null ? "" : mGirlBean.getImages().get(0)) : ""});
+
+//                    db.setTransactionSuccessful();
+//                    db.endTransaction();
                     T.showShort(this, "collection success ");
                 }
 
@@ -240,23 +244,23 @@ public class WebActivity extends BaseActivity {
 //                db.insert("collection", null, contentValues);
 
                 break;
-            case 4:
-                DataBaseHelper dataBaseHelper2 = new DataBaseHelper(this, "collection_store.db", null, 2);
-                SQLiteDatabase db2 = dataBaseHelper2.getWritableDatabase();
-                Cursor cursor = db2.rawQuery("select * from collection", null);
-                if (cursor.moveToFirst()) {
-                    do {
-                        Log.e("title=", cursor.getString(cursor.getColumnIndex("title")));
-                        Log.e("url=", cursor.getString(cursor.getColumnIndex("url")));
-                        Log.e("myId=", cursor.getString(cursor.getColumnIndex("myId")));
-                        Log.e("createdAt=", cursor.getString(cursor.getColumnIndex("createdAt")));
-                        Log.e("type=", cursor.getString(cursor.getColumnIndex("type")));
-                        Log.e("who=", cursor.getString(cursor.getColumnIndex("who")));
-                        Log.e("images=", cursor.getString(cursor.getColumnIndex("images")));
-                    } while (cursor.moveToNext());
-                }
-                cursor.close();
-                break;
+//            case 4:
+//                DataBaseHelper dataBaseHelper2 = new DataBaseHelper(this, "collection_store.db", null, 2);
+//                SQLiteDatabase db2 = dataBaseHelper2.getWritableDatabase();
+//                Cursor cursor = db2.rawQuery("select * from collection", null);
+//                if (cursor.moveToFirst()) {
+//                    do {
+//                        Log.e("title=", cursor.getString(cursor.getColumnIndex("title")));
+//                        Log.e("url=", cursor.getString(cursor.getColumnIndex("url")));
+//                        Log.e("myId=", cursor.getString(cursor.getColumnIndex("myId")));
+//                        Log.e("createdAt=", cursor.getString(cursor.getColumnIndex("createdAt")));
+//                        Log.e("type=", cursor.getString(cursor.getColumnIndex("type")));
+//                        Log.e("who=", cursor.getString(cursor.getColumnIndex("who")));
+//                        Log.e("images=", cursor.getString(cursor.getColumnIndex("images")));
+//                    } while (cursor.moveToNext());
+//                }
+//                cursor.close();
+//                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
