@@ -23,6 +23,9 @@
 
 #### [或者扫描二维码下载](https://fir.im/a5qk)
 
+<img src="https://github.com/molushihuang/girlJuicer/blob/master/Screenshots/meizhi_screenshots.png" width="160"/>
+
+
 ### 更新说明
 
 1. 主页由简单的listview修改为drawerlayout加recycleview，而且采用瀑布流的形式
