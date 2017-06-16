@@ -19,7 +19,6 @@
 <img src="https://github.com/molushihuang/girlJuicer/blob/master/Screenshots/Screenshot_2017-05-12-16-48-26.png" width="160"/>
 </p>
 
-#### [点击下载](https://pro-app-qn.fir.im/a547355a46b5424d6e2a5317b150e580efedce40.apk?attname=meizhi2.0.apk_2.0.apk&e=1494578310&token=LOvmia8oXF4xnLh0IdH05XMYpH6ENHNpARlmPc-T:IYBzokNCe5ztN74OQXdA9v8j9kg=)
 
 #### [或者扫描二维码下载](https://fir.im/a5qk)
 
