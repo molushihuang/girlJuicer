@@ -20,7 +20,7 @@
 </p>
 
 
-#### [或者扫描二维码下载](https://fir.im/a5qk)
+#### [扫描二维码下载](https://fir.im/a5qk)
 
 <img src="https://github.com/molushihuang/girlJuicer/blob/master/Screenshots/meizhi_screenshots.png" width="160"/>
 
