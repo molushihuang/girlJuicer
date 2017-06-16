@@ -39,6 +39,12 @@ public class CommonRequest {
         return post(context, relativeUrl, params, responseHandler);
     }
 
+    public static RequestHandle getsocketTestUrl(Context context,BaseResponseHandler responseHandler) {
+        String relativeUrl = "/api/investment/share.check";
+        RequestParams params = new RequestParams();
+        return post(context, relativeUrl, params, responseHandler);
+    }
+
 
 
 //    public static RequestHandle saveVisitorList(Context context, List<CrmEmployeeBean> list, String teamId, String versionId, BaseResponseHandler responseHandler) {

@@ -7,7 +7,7 @@ import com.anthole.quickdev.commonUtils.NetUtils;
 import com.anthole.quickdev.http.RequestHandle;
 import com.anthole.quickdev.http.RequestParams;
 import com.anthole.quickdev.http.base.AsyncHttpClientUtil;
-import com.example.aaron.library.MLog;
+
 import com.xqd.meizhi.http.BaseRequest.HttpMethod;
 
 
@@ -56,7 +56,7 @@ public class DoRequest {
         if (params == null) {
             params = new RequestParams();
         }
-        MLog.d("请求参数 : " + url, params.toString());
+//        MLog.d("请求参数 : " + url, params.toString());
         switch (httpMethod) {
             case POST:
                 mRequestHandle = AsyncHttpClientUtil.getInstance(context).post(context, url, params, responseHandler);

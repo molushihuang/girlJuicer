@@ -11,6 +11,7 @@ import com.xqd.meizhi.Constants;
 import com.xqd.meizhi.activity.WebActivity;
 import com.xqd.meizhi.bean.GirlBean;
 
+import java.io.InputStream;
 import java.io.Serializable;
 
 import static com.xqd.meizhi.Constants.IntentKeys.GIRLBEAN;
@@ -81,5 +82,25 @@ public class Invoke {
         // 得到剪贴板管理器
         ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         cmb.setText(content);
+    }
+
+    /**
+     * 从asset里面读取数据
+     *
+     * @param assetName
+     * @param context
+     * @return
+     */
+    public static String readTextFromAsset(String assetName, Context context) {
+        try {
+            InputStream is = context.getAssets().open(assetName);  //获得AssetManger 对象, 调用其open 方法取得  对应的inputStream对象
+            int size = is.available();//取得数据流的数据大小
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            return new String(buffer);
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

@@ -25,4 +25,12 @@ public class Parser {
         return list == null ? new ArrayList<GirlBean>() : list;
 
     }
+
+    public static List<SocketTestBean> parseSocketList(String data) {
+        List<SocketTestBean> list = null;
+        list = JsonUtil.getListFromJson(data, new TypeToken<ArrayList<SocketTestBean>>() {
+        });
+        return list == null ? new ArrayList<SocketTestBean>() : list;
+
+    }
 }

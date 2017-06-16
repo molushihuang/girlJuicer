@@ -6,7 +6,7 @@ import com.anthole.quickdev.commonUtils.StringUtils;
 import com.anthole.quickdev.commonUtils.T;
 import com.anthole.quickdev.commonUtils.jsonUtils.JSONUtils;
 import com.anthole.quickdev.http.TextHttpResponseHandler;
-import com.example.aaron.library.MLog;
+
 import com.xqd.meizhi.Constants;
 import cz.msebera.android.httpclient.Header;
 import org.json.JSONException;
@@ -25,7 +25,7 @@ public abstract class BaseResponseHandler extends TextHttpResponseHandler {
     public void onFailure(final int statusCode, Header[] headers, String responseString, Throwable throwable) {
         try {
 
-            MLog.e("网络请求失败"+ getRequestURI().toURL(), statusCode + responseString + "\n" + throwable.getMessage());
+//            MLog.e("网络请求失败"+ getRequestURI().toURL(), statusCode + responseString + "\n" + throwable.getMessage());
             if (statusCode > 400) {
                 onFailure(ws_code.FAIL, "接口异常" + statusCode);
             } else {
@@ -40,7 +40,7 @@ public abstract class BaseResponseHandler extends TextHttpResponseHandler {
     public void onSuccess(int statusCode, Header[] headers, String responseString) {
         try {
 
-            MLog.d("网络请求结果 : " + getRequestURI().toURL(), "\n"+responseString);
+//            MLog.d("网络请求结果 : " + getRequestURI().toURL(), "\n"+responseString);
             JSONObject obj;
             try {
                 obj = new JSONObject(responseString);

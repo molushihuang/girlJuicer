@@ -1,6 +1,7 @@
 package com.xqd.meizhi.activity;
 
 
+import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -58,7 +60,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        SystemBarTintInvoke.apply(this, R.color.blue, true);
+//        SystemBarTintInvoke.apply(this, R.color.blue, true);
 
 //        toolbar.setTitle("444");
         setSupportActionBar(toolbar); //将toolbar设置为actionbar
@@ -228,6 +230,28 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case R.id.nav_collections:
                 jump2Activity(CollectionActivity.class, bundle);
+                break;
+            case R.id.nav_setting:
+
+                break;
+            case R.id.nav_test:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setItems(new String[]{"to client", "to server"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        switch (which) {
+                            case 0:
+                                jump2Activity(SocketClientTestActivity.class);
+                                break;
+                            case 1:
+                                jump2Activity(SocketServerTestActivityActivity.class);
+                                break;
+                        }
+                    }
+                })
+                        .create().show();
                 break;
             default:
                 jump2Activity(AndroidActivity.class, bundle);
