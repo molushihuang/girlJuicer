@@ -55,6 +55,7 @@
                 android:hardwareAccelerated="false"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait">
+
         </activity>
         <activity
                 android:name=".activity.AboutActivity"
@@ -62,6 +63,16 @@
                 android:hardwareAccelerated="false"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                        android:host="youma.com"
+                        android:scheme="openyouma"/>
+            </intent-filter>
         </activity>
         <activity
                 android:name=".activity.GirlRecycleViewActivity"
