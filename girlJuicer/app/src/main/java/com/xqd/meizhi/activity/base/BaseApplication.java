@@ -1,8 +1,8 @@
 package com.xqd.meizhi.activity.base;
 
 import android.content.Context;
-import android.os.Build;
 import com.anthole.quickdev.QApplication;
+import com.xqd.meizhi.utils.Config;
 
 
 /**
@@ -16,12 +16,14 @@ public class BaseApplication extends QApplication {
     public static BaseApplication getInstance() {
         return instance;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         applicationContext = this;
         instance = this;
+        Config.getInstance().init(this);
 
 //        MLog.init(true);
 //        MLog.d("手机信息++MANUFACTURER", Build.MANUFACTURER);

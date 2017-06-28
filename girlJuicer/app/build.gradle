@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -36,4 +37,11 @@ dependencies {
 //    compile 'com.yipianfengye:MLog:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+}
+
+//指定dao文件生成位置
+greendao {
+    schemaVersion 1
+    daoPackage 'girlJuicer.dao'
+    targetGenDir 'src/main/java'
 }

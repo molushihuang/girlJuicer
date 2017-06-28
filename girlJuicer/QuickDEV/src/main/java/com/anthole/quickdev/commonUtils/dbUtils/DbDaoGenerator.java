@@ -15,10 +15,6 @@
  */
 package com.anthole.quickdev.commonUtils.dbUtils;
 
-import de.greenrobot.daogenerator.DaoGenerator;
-import de.greenrobot.daogenerator.Entity;
-import de.greenrobot.daogenerator.Schema;
-
 /**
  * Generates entities and DAOs for the example project DaoExample.
  * <p/>
@@ -30,22 +26,22 @@ public class DbDaoGenerator {
     final static String generatePath = "xxx/src/";
     final static String getGenerateSchemaPath = "com.xxx.xxx.models.gen";
 
-    public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(1, getGenerateSchemaPath);
-        addNote(schema);
-        new DaoGenerator().generateAll(schema, generatePath);
-    }
-
-    private static void addNote(Schema schema) {
-        Entity note = schema.addEntity("Brand");
-        note.addIdProperty();
-        note.addStringProperty("brandName").notNull();
-        note.addStringProperty("brandId").notNull();
-        note.addDateProperty("brandImageUri");
-        note.addStringProperty("brandInfos");
-        note.setHasKeepSections(true);
-        note.setSkipGeneration(true);
-    }
+//    public static void main(String[] args) throws Exception {
+//        Schema schema = new Schema(1, getGenerateSchemaPath);
+//        addNote(schema);
+//        new DaoGenerator().generateAll(schema, generatePath);
+//    }
+//
+//    private static void addNote(Schema schema) {
+//        Entity note = schema.addEntity("Brand");
+//        note.addIdProperty();
+//        note.addStringProperty("brandName").notNull();
+//        note.addStringProperty("brandId").notNull();
+//        note.addDateProperty("brandImageUri");
+//        note.addStringProperty("brandInfos");
+//        note.setHasKeepSections(true);
+//        note.setSkipGeneration(true);
+//    }
 
 //    private static void addCustomerOrder(Schema schema) {
 //        Entity customer = schema.addEntity("Customer");
