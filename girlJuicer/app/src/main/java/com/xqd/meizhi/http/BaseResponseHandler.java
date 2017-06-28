@@ -1,12 +1,12 @@
 package com.xqd.meizhi.http;
 
 import android.content.Context;
+import android.util.Log;
 import com.anthole.quickdev.QAppManager;
 import com.anthole.quickdev.commonUtils.StringUtils;
 import com.anthole.quickdev.commonUtils.T;
 import com.anthole.quickdev.commonUtils.jsonUtils.JSONUtils;
 import com.anthole.quickdev.http.TextHttpResponseHandler;
-
 import com.xqd.meizhi.Constants;
 import cz.msebera.android.httpclient.Header;
 import org.json.JSONException;
@@ -40,7 +40,7 @@ public abstract class BaseResponseHandler extends TextHttpResponseHandler {
     public void onSuccess(int statusCode, Header[] headers, String responseString) {
         try {
 
-//            MLog.d("网络请求结果 : " + getRequestURI().toURL(), "\n"+responseString);
+            Log.d("网络请求结果 : " + getRequestURI().toURL(), "\n"+responseString);
             JSONObject obj;
             try {
                 obj = new JSONObject(responseString);

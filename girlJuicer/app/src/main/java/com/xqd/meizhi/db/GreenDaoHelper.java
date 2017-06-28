@@ -1,6 +1,7 @@
-package com.xqd.meizhi.utils;
+package com.xqd.meizhi.db;
 
 import com.xqd.meizhi.bean.TestGreenBean;
+import com.xqd.meizhi.utils.Config;
 import girlJuicer.dao.TestGreenBeanDao;
 
 /**
