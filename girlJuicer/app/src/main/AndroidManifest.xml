@@ -102,6 +102,13 @@
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait">
         </activity>
+        <activity
+                android:name=".activity.BannerTestActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:hardwareAccelerated="false"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait">
+        </activity>
 
         <receiver android:name=".receiver.BootBroadcastReceiver">
             <intent-filter>

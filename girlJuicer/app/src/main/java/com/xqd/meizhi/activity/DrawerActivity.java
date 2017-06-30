@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import butterknife.Bind;
 import com.anthole.quickdev.http.RequestHandle;
-import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
 import com.xqd.meizhi.adapter.GirlRecycleAdapter;
@@ -182,6 +181,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 1, 1, "about");
+        menu.add(0, 2, 2, "test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -191,6 +191,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         {
             case 1:
                 jump2Activity(AboutActivity.class);
+                break;
+            case 2:
+                jump2Activity(BannerTestActivity.class);
                 break;
 
         }
@@ -242,12 +245,12 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                     public void onClick(DialogInterface dialog, int which) {
 
                         switch (which) {
-                            case 0:
-                                jump2Activity(SocketClientTestActivity.class);
-                                break;
-                            case 1:
-                                jump2Activity(SocketServerTestActivityActivity.class);
-                                break;
+//                            case 0:
+//                                jump2Activity(SocketClientTestActivity.class);
+//                                break;
+//                            case 1:
+//                                jump2Activity(SocketServerTestActivityActivity.class);
+//                                break;
                         }
                     }
                 })

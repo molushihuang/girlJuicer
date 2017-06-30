@@ -15,6 +15,7 @@ public class AndroidShowAdapter extends QuickAdapter<GirlBean> {
 
     ItemListener mItemListener;
 
+
     public AndroidShowAdapter(Context context, ItemListener mItemListener) {
         super(context, R.layout.item_android);
         this.mItemListener = mItemListener;
