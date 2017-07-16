@@ -1,7 +1,9 @@
 package com.xqd.meizhi.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -11,11 +13,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnLongClickListener;
 import android.webkit.*;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import butterknife.Bind;
 import com.anthole.quickdev.commonUtils.StringUtils;
@@ -37,7 +38,12 @@ import static com.xqd.meizhi.Constants.IntentKeys.GIRLBEAN;
 
 public class WebActivity extends BaseActivity {
 
-
+    //视频全屏参数
+    protected static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
+            new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    private View customView;
+    private FrameLayout fullscreenContainer;
+    private WebChromeClient.CustomViewCallback customViewCallback;
     @Bind(R.id.webview)
     WebView webview;
     @Bind(R.id.main_toolbar)
@@ -98,6 +104,7 @@ public class WebActivity extends BaseActivity {
         }
         settings.setLoadWithOverviewMode(true);//设置加载进来的页面自适应手机屏幕
         settings.setUseWideViewPort(true);
+        settings.setAllowFileAccess(true);
         settings.setPluginState(WebSettings.PluginState.ON);
 //        settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
@@ -119,7 +126,23 @@ public class WebActivity extends BaseActivity {
                 if (StringUtils.isEmpty(title)) {
                     toolbar.setTitle(rTitle);
                 }
+            }
 
+            @Override
+            public View getVideoLoadingProgressView() {
+                FrameLayout frameLayout = new FrameLayout(WebActivity.this);
+                frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+                return frameLayout;
+            }
+
+            @Override
+            public void onShowCustomView(View view, CustomViewCallback callback) {
+                showCustomView(view, callback);
+            }
+
+            @Override
+            public void onHideCustomView() {
+                hideCustomView();
             }
         });
         webview.setOnLongClickListener(new OnLongClickListener() {
@@ -186,6 +209,66 @@ public class WebActivity extends BaseActivity {
         CookieSyncManager.getInstance().sync();
     }
 
+    /**
+     * 视频播放全屏
+     **/
+    private void showCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+        // if a view already exists then immediately terminate the new one
+        if (customView != null) {
+            callback.onCustomViewHidden();
+            return;
+        }
+
+        getWindow().getDecorView();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//横屏
+        FrameLayout decor = (FrameLayout) getWindow().getDecorView();
+        fullscreenContainer = new FullscreenHolder(this);
+        fullscreenContainer.addView(view, COVER_SCREEN_PARAMS);
+        decor.addView(fullscreenContainer, COVER_SCREEN_PARAMS);
+        customView = view;
+        setStatusBarVisibility(false);
+        customViewCallback = callback;
+    }
+
+    /**
+     * 隐藏视频全屏
+     */
+    private void hideCustomView() {
+        if (customView == null) {
+            return;
+        }
+
+        setStatusBarVisibility(true);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        FrameLayout decor = (FrameLayout) getWindow().getDecorView();
+        decor.removeView(fullscreenContainer);
+        fullscreenContainer = null;
+        customView = null;
+        customViewCallback.onCustomViewHidden();
+        webview.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 全屏容器界面
+     */
+    static class FullscreenHolder extends FrameLayout {
+
+        public FullscreenHolder(Context ctx) {
+            super(ctx);
+            setBackgroundColor(ctx.getResources().getColor(android.R.color.black));
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent evt) {
+            return true;
+        }
+    }
+
+    private void setStatusBarVisibility(boolean visible) {
+        int flag = visible ? 0 : WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        getWindow().setFlags(flag, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -203,15 +286,15 @@ public class WebActivity extends BaseActivity {
             case android.R.id.home:// 点击返回图标事件
                 this.finish();
                 break;
-            case 1:
+            case 1: //浏览器打开链接
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
                 break;
-            case 2:
+            case 2: //复制到粘贴板
                 Invoke.clipboardCopy(this, url);
                 T.showShort(this, "Copied to clipboard");
                 break;
-            case 3:
+            case 3: //收藏到本地
                 boolean hasTile = false;
                 DataBaseHelper dataBaseHelper = new DataBaseHelper(this, "collection_store.db", null, 2);
                 SQLiteDatabase db = dataBaseHelper.getWritableDatabase();
@@ -279,16 +362,26 @@ public class WebActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         webview.onResume();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        webview.reload();
     }
 
 
     @Override
     public void onBackPressed() {
-        if (webview != null && webview.canGoBack()) {
+        if (customView != null) {
+            hideCustomView();
+        } else if (webview != null && webview.canGoBack()) {
             webview.goBack();
         } else {
             super.onBackPressed();
         }
     }
+
 
 }

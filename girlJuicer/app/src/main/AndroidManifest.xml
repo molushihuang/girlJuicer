@@ -89,9 +89,8 @@
         <activity
                 android:name=".activity.WebActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
-                android:hardwareAccelerated="false"
-                android:launchMode="singleTop"
-                android:screenOrientation="portrait">
+                android:hardwareAccelerated="true"
+                android:launchMode="singleTop">
         </activity>
         <activity
                 android:name=".activity.CollectionActivity"
