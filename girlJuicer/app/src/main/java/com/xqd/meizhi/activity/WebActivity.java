@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.webkit.*;
+import android.widget.ProgressBar;
 import butterknife.Bind;
 import com.anthole.quickdev.commonUtils.StringUtils;
 import com.anthole.quickdev.commonUtils.T;
@@ -41,8 +42,8 @@ public class WebActivity extends BaseActivity {
     WebView webview;
     @Bind(R.id.main_toolbar)
     Toolbar toolbar;
-//    @Bind(R.id.pb_web)
-//    ProgressBar pb;
+    @Bind(R.id.pb_web)
+    ProgressBar pb;
 
     String title;
     String url;
@@ -109,7 +110,7 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-
+                pb.setProgress(newProgress);
             }
 
             @Override
@@ -150,13 +151,14 @@ public class WebActivity extends BaseActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 //                dismissLoadingDialog();
+                pb.setVisibility(View.GONE);
 
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-
+                pb.setVisibility(View.VISIBLE);
 //                showLoadingDialog(null);
             }
 
