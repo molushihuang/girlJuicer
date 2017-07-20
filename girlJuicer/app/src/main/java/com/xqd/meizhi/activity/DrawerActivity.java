@@ -181,7 +181,8 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 1, 1, "about");
-        menu.add(0, 2, 2, "test");
+        menu.add(0, 2, 2, "banner_test");
+        menu.add(0, 3, 3, "letter_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -194,6 +195,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case 2:
                 jump2Activity(BannerTestActivity.class);
+                break;
+            case 3:
+                jump2Activity(LetterSortActivity.class);
                 break;
 
         }

@@ -111,6 +111,8 @@
         </activity>
         <activity android:name=".activity.SocketServerTestActivityActivity">
         </activity>
+        <activity android:name=".activity.LetterSortActivity">
+        </activity>
 
         <!-- 开机自启动服务 -->
         <receiver android:name=".receiver.BootBroadcastReceiver">
