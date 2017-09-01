@@ -15,6 +15,7 @@
     <color name="blue">#0076FF</color>
     <color name="divider_gray">#e8e8e9</color>
     <color name="light_gray">#CCCCCC</color>
+    <color name="track_green_color">#ade93e</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

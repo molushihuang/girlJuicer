@@ -23,9 +23,8 @@ public abstract class QFragmentActivity extends AutoLayoutFragmentActivity {
 
     protected IProgressDialog iProgressDialog;
 
-    protected abstract void initData(Bundle savedInstanceState);
-
     protected abstract int getLayoutId();
+    protected abstract void initData(Bundle savedInstanceState);
 
     protected abstract IProgressDialog createIProgressDialog();
 

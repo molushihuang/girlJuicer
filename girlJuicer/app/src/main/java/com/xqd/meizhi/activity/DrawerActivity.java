@@ -183,6 +183,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 1, 1, "about");
         menu.add(0, 2, 2, "banner_test");
         menu.add(0, 3, 3, "letter_test");
+        menu.add(0, 4, 4, "map_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -198,6 +199,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case 3:
                 jump2Activity(LetterSortActivity.class);
+                break;
+            case 4:
+                jump2Activity(MapActivity.class);
                 break;
 
         }
