@@ -149,6 +149,8 @@
         </activity>
         <activity android:name=".activity.LetterSortActivity">
         </activity>
+        <activity android:name=".activity.DanmakuActivity">
+        </activity>
         <activity
                 android:name=".activity.MapActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"

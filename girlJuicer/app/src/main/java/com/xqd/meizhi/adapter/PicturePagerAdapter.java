@@ -48,6 +48,7 @@ public class PicturePagerAdapter extends PagerAdapter {
 
         final String path = paths.get(position);
 
+
         imageView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float v, float v1) {
