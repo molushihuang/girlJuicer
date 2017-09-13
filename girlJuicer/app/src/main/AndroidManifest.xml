@@ -151,6 +151,8 @@
         </activity>
         <activity android:name=".activity.DanmakuActivity">
         </activity>
+        <activity android:name=".activity.CanvasDemoActivity">
+        </activity>
         <activity
                 android:name=".activity.MapActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"

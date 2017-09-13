@@ -52,13 +52,11 @@ public class DanmuControl {
     private Context mContext;
     private IDanmakuView mDanmakuView;
     private DanmakuContext mDanmakuContext;
-    private String url;
 
     public DanmuControl(Context context) {
         this.mContext = context;
         setSize(context);
         initDanmuConfig();
-        url="https://ws1.sinaimg.cn/large/610dc034ly1fitcjyruajj20u011h412.jpg";
     }
 
     /**

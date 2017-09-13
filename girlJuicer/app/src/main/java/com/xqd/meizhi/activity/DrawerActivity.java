@@ -185,6 +185,8 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 3, 3, "letter_test");
         menu.add(0, 4, 4, "map_test");
         menu.add(0, 5, 5, "danmaku_test");
+        menu.add(0, 6, 6, "canvas_test");
+        menu.add(0, 7, 7, "socket_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -206,6 +208,27 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case 5:
                 jump2Activity(DanmakuActivity.class);
+                break;
+            case 6:
+                jump2Activity(CanvasDemoActivity.class);
+                break;
+            case 7:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setItems(new String[]{"to client", "to server"}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        switch (which) {
+//                            case 0:
+//                                jump2Activity(SocketClientTestActivity.class);
+//                                break;
+//                            case 1:
+//                                jump2Activity(SocketServerTestActivityActivity.class);
+//                                break;
+                        }
+                    }
+                })
+                        .create().show();
                 break;
 
         }
@@ -248,25 +271,6 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case R.id.nav_setting:
 
-                break;
-            case R.id.nav_test:
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setItems(new String[]{"to client", "to server"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        switch (which) {
-//                            case 0:
-//                                jump2Activity(SocketClientTestActivity.class);
-//                                break;
-//                            case 1:
-//                                jump2Activity(SocketServerTestActivityActivity.class);
-//                                break;
-                        }
-                    }
-                })
-                        .create().show();
                 break;
             default:
                 jump2Activity(AndroidActivity.class, bundle);

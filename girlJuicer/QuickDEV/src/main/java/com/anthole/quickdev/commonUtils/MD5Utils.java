@@ -1,25 +1,18 @@
 package com.anthole.quickdev.commonUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import android.text.TextUtils;
+import com.anthole.quickdev.commonUtils.logUtils.Logs;
+
+import java.io.*;
 import java.math.BigInteger;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import android.text.TextUtils;
-
-import com.anthole.quickdev.commonUtils.logUtils.Logs;
-
 /**
- *
  * User: cym
  * Date: 13-10-30
  * Time: 上午10:49
- *
  */
 //MD5Utils
 public class MD5Utils {
@@ -53,17 +46,17 @@ public class MD5Utils {
         DigestInputStream digestInputStream = null;
         try {
             // 拿到一个MD5转换器（同样，这里可以换成SHA1）
-            MessageDigest messageDigest =MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             // 使用DigestInputStream
             fileInputStream = new FileInputStream(inputFile);
-          //  Base64InputStream base64InputStream=new Base64InputStream(fileInputStream,0);
-            digestInputStream = new DigestInputStream(fileInputStream,messageDigest);
+            //  Base64InputStream base64InputStream=new Base64InputStream(fileInputStream,0);
+            digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
             // read的过程中进行MD5处理，直到读完文件
-            byte[] buffer =new byte[bufferSize];
-            while (digestInputStream.read(buffer) > 0);
+            byte[] buffer = new byte[bufferSize];
+            while (digestInputStream.read(buffer) > 0) ;
             // 获取最终的MessageDigest
 
-            messageDigest= digestInputStream.getMessageDigest();
+            messageDigest = digestInputStream.getMessageDigest();
             // 拿到结果，也是字节数组，包含16个元素
             byte[] resultByteArray = messageDigest.digest();
             // 同样，把字节数组转换成字符串
@@ -85,7 +78,7 @@ public class MD5Utils {
     public static String stringMD5(String input) {
         try {
             // 拿到一个MD5转换器（如果想要SHA1参数换成”SHA1”）
-            MessageDigest messageDigest =MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             // 输入的字符串转换成字节数组
             byte[] inputByteArray = input.getBytes();
             // inputByteArray是输入字符串转换得到的字节数组
@@ -99,14 +92,13 @@ public class MD5Utils {
         }
     }
 
-    private static String convertToHex(byte[] data) throws IOException
-    {
+    private static String convertToHex(byte[] data) throws IOException {
 
 
         StringBuffer sb = new StringBuffer();
-        String hex=null;
+        String hex = null;
 
-        hex= TripleDES.Base64encoding(data, 0);
+        hex = TripleDES.Base64encoding(data, 0);
 
         sb.append(hex);
 
@@ -173,7 +165,7 @@ public class MD5Utils {
         } catch (Exception e) {
             e.printStackTrace();
             Logs.e(e, "");
-            return  "";
+            return "";
         }
     }
 
@@ -185,24 +177,24 @@ public class MD5Utils {
         if (length > Integer.MAX_VALUE) {
             // File is too large
         }
-        byte[] bytes = new byte[(int)length];
+        byte[] bytes = new byte[(int) length];
 
         int offset = 0;
         int numRead = 0;
         while (offset < bytes.length
-                && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+                && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
             offset += numRead;
         }
 
         if (offset < bytes.length) {
-            throw new IOException("Could not completely read file "+file.getName());
+            throw new IOException("Could not completely read file " + file.getName());
         }
 
         is.close();
         return bytes;
     }
 
-    public static String getMD5EncryptedString(String encTarget){
+    public static String getMD5EncryptedString(String encTarget) {
         MessageDigest mdEnc = null;
         try {
             mdEnc = MessageDigest.getInstance("MD5");
@@ -212,8 +204,8 @@ public class MD5Utils {
         } // Encryption algorithm
         mdEnc.update(encTarget.getBytes(), 0, encTarget.length());
         String md5 = new BigInteger(1, mdEnc.digest()).toString(16);
-        while ( md5.length() < 32 ) {
-            md5 = "0"+md5;
+        while (md5.length() < 32) {
+            md5 = "0" + md5;
         }
         return md5;
     }
