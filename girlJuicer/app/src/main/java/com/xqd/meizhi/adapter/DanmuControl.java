@@ -110,7 +110,7 @@ public class DanmuControl {
 
         @Override
         public void drawBackground(BaseDanmaku danmaku, Canvas canvas, float left, float top) {
-            paint.setAntiAlias(true);
+            paint.setAntiAlias(true);//抗锯齿
             if (!danmaku.isGuest && danmaku.userId == mGoodUserId && mGoodUserId != 0) {
                 paint.setColor(mContext.getResources().getColor(R.color.colorAccent));//粉红 楼主
             } else if (!danmaku.isGuest && danmaku.userId == mMyUserId && danmaku.userId != 0) {

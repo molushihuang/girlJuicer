@@ -1,7 +1,6 @@
 package com.xqd.meizhi.activity;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -31,8 +30,6 @@ public class DanmakuActivity extends BaseActivity {
     DanmakuView mDanmakuView;
 
     private DanmuControl mDanmuControl;
-    Thread thread;
-    private boolean isStop;
 
     @Override
     protected int getLayoutId() {
@@ -61,18 +58,8 @@ public class DanmakuActivity extends BaseActivity {
     //增加一条弹幕
     @OnClick(R.id.btn_add)
     public void addDanmu() {
-        if (thread == null) {
-            thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (!isStop) {
-                        SystemClock.sleep(1000);
-                        setData();
-                    }
-                }
-            });
-            thread.start();
-        }
+//        SystemClock.sleep(1000);
+        setData();
 
     }
 
@@ -120,7 +107,6 @@ public class DanmakuActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mDanmuControl.destroy();
-        isStop=true;
     }
 
     @Override
