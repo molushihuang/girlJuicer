@@ -10,11 +10,11 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
 
 /**
- *
  * TripleDES Method
  */
 public class TripleDES {
     private final static String token = "";
+
     public static byte[] copyOf(byte[] original, int newLength) {
 
         if (newLength < 0) {
@@ -27,39 +27,42 @@ public class TripleDES {
         return Build.VERSION.SDK_INT;
     }
 
-    public static String Base64encoding(byte[] context,int type) {
-        String result="";
+    public static String Base64encoding(byte[] context, int type) {
+        String result = "";
         if (judgeVerionOfSdk() > 7) {
-            result= Base64.encodeToString(context, type);
+            result = Base64.encodeToString(context, type);
         } else {
-            result= com.anthole.quickdev.commonUtils.Base64.encodeBytes(context);
+            result = com.anthole.quickdev.commonUtils.Base64.encodeBytes(context);
         }
         return result;
     }
-    public static byte[] Base64encodingByte(byte[] context,int type) {
+
+    public static byte[] Base64encodingByte(byte[] context, int type) {
         byte[] result;
         if (judgeVerionOfSdk() > 17) {
-            result= Base64.encode(context, type);
+            result = Base64.encode(context, type);
         } else {
-            result= com.anthole.quickdev.commonUtils.Base64.encodeBytesToBytes(context);
+            result = com.anthole.quickdev.commonUtils.Base64.encodeBytesToBytes(context);
         }
         return result;
     }
-    public static byte[] Base64decoding(String context,int type) throws  Exception{
+
+    public static byte[] Base64decoding(String context, int type) throws Exception {
         byte[] result;
         if (judgeVerionOfSdk() > 17) {
-            result= Base64.decode(context, type);
+            result = Base64.decode(context, type);
         } else {
-            result= com.anthole.quickdev.commonUtils.Base64.decode(context);
+            result = com.anthole.quickdev.commonUtils.Base64.decode(context);
         }
         return result;
     }
-    public static byte[] Base64decodingByte(byte[] context,int type) throws  Exception{
+
+    public static byte[] Base64decodingByte(byte[] context, int type) throws Exception {
         byte[] result;
         if (judgeVerionOfSdk() > 17) {
-            result= Base64.decode(context, type);
+            result = Base64.decode(context, type);
         } else {
-            result= com.anthole.quickdev.commonUtils.Base64.decode(context);
+            result = com.anthole.quickdev.commonUtils.Base64.decode(context);
         }
         return result;
     }
@@ -122,7 +125,7 @@ public class TripleDES {
     }
 
     public static String decrypt(byte[] message) throws Exception {
-        byte[] values =Base64decodingByte(message, 0);
+        byte[] values = Base64decodingByte(message, 0);
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
         final byte[] digestOfPassword = md.digest(token
                 .getBytes("utf-8"));

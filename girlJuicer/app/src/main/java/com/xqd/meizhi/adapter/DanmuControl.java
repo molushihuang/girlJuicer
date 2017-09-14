@@ -5,10 +5,10 @@ import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import android.text.*;
 import android.util.Log;
+import com.anthole.quickdev.commonUtils.DensityUtils;
 import com.bumptech.glide.Glide;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.bean.Danmu;
-import com.xqd.meizhi.utils.DpOrSp2PxUtil;
 import com.xqd.meizhi.view.CenteredImageSpan;
 import com.xqd.meizhi.view.CircleDrawable;
 import master.flame.danmaku.controller.DrawHandler;
@@ -63,13 +63,13 @@ public class DanmuControl {
      * 对数值进行转换，适配手机，必须在初始化之前，否则有些数据不会起作用
      */
     private void setSize(Context context) {
-        BITMAP_WIDTH = DpOrSp2PxUtil.dp2pxConvertInt(context, BITMAP_HEIGHT);
-        BITMAP_HEIGHT = DpOrSp2PxUtil.dp2pxConvertInt(context, BITMAP_HEIGHT);
-//        EMOJI_SIZE = DpOrSp2PxUtil.dp2pxConvertInt(context, EMOJI_SIZE);
-        DANMU_PADDING = DpOrSp2PxUtil.dp2pxConvertInt(context, DANMU_PADDING);
-        DANMU_PADDING_INNER = DpOrSp2PxUtil.dp2pxConvertInt(context, DANMU_PADDING_INNER);
-        DANMU_RADIUS = DpOrSp2PxUtil.dp2pxConvertInt(context, DANMU_RADIUS);
-        DANMU_TEXT_SIZE = DpOrSp2PxUtil.sp2px(context, DANMU_TEXT_SIZE);
+        BITMAP_WIDTH = DensityUtils.dp2pxConvertInt(context, BITMAP_HEIGHT);
+        BITMAP_HEIGHT = DensityUtils.dp2pxConvertInt(context, BITMAP_HEIGHT);
+//        EMOJI_SIZE = DensityUtils.dp2pxConvertInt(context, EMOJI_SIZE);
+        DANMU_PADDING = DensityUtils.dp2pxConvertInt(context, DANMU_PADDING);
+        DANMU_PADDING_INNER = DensityUtils.dp2pxConvertInt(context, DANMU_PADDING_INNER);
+        DANMU_RADIUS = DensityUtils.dp2pxConvertInt(context, DANMU_RADIUS);
+        DANMU_TEXT_SIZE = DensityUtils.sp2px(context, DANMU_TEXT_SIZE);
     }
 
     /**

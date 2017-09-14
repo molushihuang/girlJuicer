@@ -37,12 +37,12 @@ import android.view.View;
  * <li>{@link #scaleImageTo(Bitmap, int, int)}</li>
  * <li>{@link #scaleImage(Bitmap, float, float)}</li>
  * </ul>
- * 
+ *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2012-6-27
  */
 public class ImageUtils {
 
-	public static final int LEFT = 0;
+    public static final int LEFT = 0;
     public static final int RIGHT = 1;
     public static final int TOP = 3;
     public static final int BOTTOM = 4;

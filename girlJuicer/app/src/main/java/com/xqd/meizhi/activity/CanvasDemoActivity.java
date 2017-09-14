@@ -41,10 +41,10 @@ public class CanvasDemoActivity extends Activity {
 //            canvas.drawCircle(300, 300, 190, paint);
 
             //绘制弧线区域
-            Paint mpaint=new Paint();
-            mpaint.setColor(Color.YELLOW);//作为参照使用
+            Paint mPaint = new Paint();
+            mPaint.setColor(Color.YELLOW);//作为参照使用
             RectF rect = new RectF(200, 300, 500, 600);
-            canvas.drawRect(rect, mpaint);
+            canvas.drawRect(rect, mPaint);
             canvas.drawArc(rect, //弧线所使用的矩形区域大小
                     90,  //开始角度(也是顺时针计算的)
                     90, //扫过的角度（顺时针）
