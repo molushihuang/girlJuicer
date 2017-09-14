@@ -48,7 +48,7 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
         this.mDatas = mDatas;
         this.mItemLayoutId = itemLayoutId;
     }
-    
+
     /**
      * 构造器
      *
@@ -125,69 +125,63 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
     }
 
     private void onBindAdvanceViewHolder(WanViewHolder holder, int i) {
-        convert(holder, mDatas.get(i),i);
+        convert(holder, mDatas.get(i), i);
     }
-    
-    public void add(T elem)
-	{
-    	mDatas.add(elem);
-		notifyDataSetChanged();
-	}
 
-	public void addAll(List<T> elem)
-	{
-		mDatas.addAll(elem);
-		notifyDataSetChanged();
-	}
+    public void add(T elem) {
+        mDatas.add(elem);
+        notifyDataSetChanged();
+    }
 
-	public void set(T oldElem, T newElem)
-	{
-		set(mDatas.indexOf(oldElem), newElem);
-	}
+    public void addAll(List<T> elem) {
+        mDatas.addAll(elem);
+        notifyDataSetChanged();
+    }
 
-	public void set(int index, T elem)
-	{
-		mDatas.set(index, elem);
-		notifyItemChanged(index);
-	}
+    public void set(T oldElem, T newElem) {
+        set(mDatas.indexOf(oldElem), newElem);
+    }
 
-	public void remove(T elem)
-	{
-		mDatas.remove(elem);
-		notifyDataSetChanged();
-	}
+    public void set(int index, T elem) {
+        mDatas.set(index, elem);
+        notifyItemChanged(index);
+    }
 
-	/**
-	 * holder.getAdapterPosition()
-	 * @param index
-	 */
-	public void remove(int index)
-	{
-		mDatas.remove(index);
-		notifyItemRemoved(index);
-        if(index != mDatas.size()){      // 这个判断的意义就是如果移除的是最后一个，就不用管它了
+    public void remove(T elem) {
+        mDatas.remove(elem);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * holder.getAdapterPosition()
+     *
+     * @param index
+     */
+    public void remove(int index) {
+        mDatas.remove(index);
+        notifyItemRemoved(index);
+        if (index != mDatas.size()) {      // 这个判断的意义就是如果移除的是最后一个，就不用管它了
             notifyItemRangeChanged(index, mDatas.size() - index);//加这个是为了在移除的时候防止崩溃和错位
         }
-	}
+    }
 
-	public void replaceAll(List<T> elem)
-	{
-		mDatas.clear();
-		mDatas.addAll(elem);
-		notifyDataSetChanged();
-	}
+    public void replaceAll(List<T> elem) {
+        mDatas.clear();
+        mDatas.addAll(elem);
+        notifyDataSetChanged();
+    }
 
-	public boolean contains(T elem)
-	{
-		return mDatas.contains(elem);
-	}
+    public boolean contains(T elem) {
+        return mDatas.contains(elem);
+    }
 
-	/** Clear data list */
-	public void clear()
-	{
-		mDatas.clear();
-		notifyDataSetChanged();
-	}
+    /**
+     * Clear data list
+     */
+    public void clear() {
+        mDatas.clear();
+        notifyDataSetChanged();
+    }
 
     /**
      * 设置每个页面显示的内容
@@ -195,7 +189,7 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
      * @param holder itemHolder
      * @param item   每一Item显示的数据
      */
-    public abstract void convert(WanViewHolder holder, T item,int position);
+    public abstract void convert(WanViewHolder holder, T item, int position);
 
 
     /**
@@ -208,7 +202,7 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
     protected WanViewHolder onCreateAdvanceViewHolder(ViewGroup parent, int viewType) {
 
         View v = mInflater.inflate(mItemLayoutId, null);
-        return new WanViewHolder(mContext,v, this);
+        return new WanViewHolder(mContext, v, this);
     }
 
     @Override
@@ -216,12 +210,12 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
 
 
         if (mHeaderViewTypes.contains(viewType)) {
-            return new HeaderHolder(mContext,mHeaderViews.get(viewType / 100000));
+            return new HeaderHolder(mContext, mHeaderViews.get(viewType / 100000));
         }
 
         if (mFooterViewTypes.contains(viewType)) {
             int index = viewType / 100000 - getAdvanceCount() - mHeaderViews.size();
-            return new FooterHolder(mContext,mFooterViews.get(index));
+            return new FooterHolder(mContext, mFooterViews.get(index));
         }
 
         return onCreateAdvanceViewHolder(parent, viewType);
@@ -248,15 +242,15 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
 
     class HeaderHolder extends WanViewHolder {
 
-        public HeaderHolder(Context context,View itemView) {
-            super(context,itemView);
+        public HeaderHolder(Context context, View itemView) {
+            super(context, itemView);
         }
     }
 
     class FooterHolder extends WanViewHolder {
 
-        public FooterHolder(Context context,View itemView) {
-            super(context,itemView);
+        public FooterHolder(Context context, View itemView) {
+            super(context, itemView);
         }
     }
 
@@ -279,9 +273,11 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
         this.mDatas = mDatas;
         notifyDataSetChanged();
     }
-    public List<T> getData(){
-    	return mDatas;
+
+    public List<T> getData() {
+        return mDatas;
     }
+
     public int getHeaderViewsCount() {
         return mHeaderViews.size();
     }
@@ -310,7 +306,6 @@ public abstract class WanAdapter<T> extends RecyclerView.Adapter<WanViewHolder> 
     public interface OnItemClickListener {
         void onItemClickListener(int posotion);
     }
-    
 
 
 }

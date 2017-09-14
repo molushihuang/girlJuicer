@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import com.anthole.quickdev.commonUtils.DensityUtils;
 
 
 /**
@@ -119,8 +120,8 @@ public class WanItemDecoration extends RecyclerView.ItemDecoration {
 
 
     public void drawVertical(Canvas c, RecyclerView parent) {
-        final int left = parent.getPaddingLeft() + DensityUtil.dip2px(parent.getContext(), leftMargin);
-        final int right = parent.getWidth() - parent.getPaddingRight() - DensityUtil.dip2px(parent.getContext(), rightMargit);
+        final int left = parent.getPaddingLeft() + DensityUtils.dp2pxConvertInt(parent.getContext(), leftMargin);
+        final int right = parent.getWidth() - parent.getPaddingRight() - DensityUtils.dp2pxConvertInt(parent.getContext(), rightMargit);
 
         final int childCount = parent.getChildCount();
         LinearLayoutManager layoutManager = getLinearLayoutManger(parent);

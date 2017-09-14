@@ -187,6 +187,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 5, 5, "danmaku_test");
         menu.add(0, 6, 6, "canvas_test");
         menu.add(0, 7, 7, "socket_test");
+        menu.add(0, 8, 8, "calender_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -230,7 +231,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 })
                         .create().show();
                 break;
-
+            case 8:
+                jump2Activity(CalenderActivity.class);
+                break;
         }
         return super.onOptionsItemSelected(item);
 
