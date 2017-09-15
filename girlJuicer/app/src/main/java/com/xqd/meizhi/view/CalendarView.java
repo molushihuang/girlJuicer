@@ -21,7 +21,7 @@ public class CalendarView extends LinearLayout {
 
 	public CalendarView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		View view = LayoutInflater.from(context).inflate(R.layout.activity_date, this);
+		View view = LayoutInflater.from(context).inflate(R.layout.layout_calenderview, this);
 		iv_left = (ImageView) view.findViewById(R.id.iv_left);
 		iv_right = (ImageView) view.findViewById(R.id.iv_right);
 		monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);

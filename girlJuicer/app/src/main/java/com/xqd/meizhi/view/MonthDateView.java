@@ -23,11 +23,11 @@ public class MonthDateView extends View {
     private int NUM_ROWS = 6;//行数
     private Paint mPaint;
     private int mSelectDayColor = Color.parseColor("#FFFFFF");
-    private int mSelectBGColor;
+    private int mSelectBGColor;//点击选中的背景颜色
     private int mCurrentColor;
-    private int mCircleColor;
-    private int mEnableDateColor;
-    private int mUnableDateColor;
+    private int mCircleColor;//当前日期框的颜色
+    private int mEnableDateColor; //点击选中的文字颜色
+    private int mUnableDateColor;//文字的基本颜色
     private int mRelaxColor;
     private int mWorkColor;
     private int mPriceColor;
@@ -37,12 +37,12 @@ public class MonthDateView extends View {
     private float mColumnSize, mRowSize;
     private int mDaySize, mPriceSize;
     private TextView tv_date, tv_week;
-    private int weekRow;
+    private int weekRow;//周几
     private int[][] daysString;
     private int mCircleRadius = 6;
     private DateClick dateClick;
     private int mMarginSize = 1;
-    private int minYear, minMonth, minDay, maxYear, maxMonth;
+
 
     private int mTouchSlop;
 
@@ -70,7 +70,8 @@ public class MonthDateView extends View {
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mRowSize = mDateHeight;
-        setSelectYearMonthDate(mCurrYear, mCurrMonth);
+        setSelectYearMonth(mCurrYear, mCurrMonth, mCurrDay);
+
     }
 
     @Override
@@ -106,6 +107,24 @@ public class MonthDateView extends View {
             float startX = mColumnSize * column + (mColumnSize - mPaint.measureText(dayString)) / 2;
             float startY = mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2;
 
+            //绘制文字
+            mPaint.setColor(mUnableDateColor);
+            mPaint.setStyle(Style.STROKE);
+            canvas.drawText(dayString, startX, startY, mPaint);
+
+            //绘制当天背景框
+            if (dayString.equals(mCurrDay + "")) {
+                float startRecX = mColumnSize * column + mMarginSize;
+                float startRecY = mRowSize * row + mMarginSize;
+                float endRecX = startRecX + mColumnSize - 2 * mMarginSize;
+                float endRecY = startRecY + mRowSize - 2 * mMarginSize;
+                mPaint.setColor(mCircleColor);
+                mPaint.setStyle(Style.STROKE);
+                canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
+
+            }
+
+            //绘制点击选择的那天背景矩形
             if (dayString.equals(mSelDay + "")) {
                 //绘制背景色矩形
                 float startRecX = mColumnSize * column + mMarginSize;
@@ -115,15 +134,17 @@ public class MonthDateView extends View {
                 mPaint.setColor(mSelectBGColor);
                 mPaint.setStyle(Style.FILL);
                 canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
-                //记录第几行，即第几周
+                //记录第几列，即第几周
                 weekRow = column;
+
+                mPaint.setColor(mEnableDateColor);
+                mPaint.setStyle(Style.STROKE);
+                canvas.drawText(dayString, startX, startY, mPaint);
             }
             //绘制事务圆形标志
 //            drawCircle(row, column, day + 1, canvas);
 
-            mPaint.setColor(mEnableDateColor);
-            mPaint.setStyle(Style.STROKE);
-            canvas.drawText(dayString, startX, startY, mPaint);
+
         }
         if (tv_date != null) {
             tv_date.setText(mSelYear + "年" + (mSelMonth + 1) + "月");
@@ -213,11 +234,11 @@ public class MonthDateView extends View {
             case MotionEvent.ACTION_UP:
                 int upX = (int) event.getX();
                 int upY = (int) event.getY();
-                if (upX - downX > 0 && Math.abs(upX - downX) > mTouchSlop) {//左滑
-                    onLeftClick();
-                } else if (upX - downX < 0 && Math.abs(upX - downX) > mTouchSlop) {//右滑
-                    onRightClick();
-                }
+//                if (upX - downX > 0 && Math.abs(upX - downX) > mTouchSlop) {//左滑
+//                    onLeftClick();
+//                } else if (upX - downX < 0 && Math.abs(upX - downX) > mTouchSlop) {//右滑
+//                    onRightClick();
+//                }
                 if (Math.abs(upX - downX) < 10 && Math.abs(upY - downY) < 10) {//点击事件
                     performClick();
                     doClickAction((upX + downX) / 2, (upY + downY) / 2);
@@ -240,27 +261,16 @@ public class MonthDateView extends View {
     }
 
     /**
-     * 设置年月
+     * 设置年月日
      *
      * @param year
      * @param month
      */
     private void setSelectYearMonth(int year, int month, int day) {
-        if (year <= 0 || month <= 0 || day <= 0) return;
+        if (year <= 0 || month < 0 || day <= 0) return;
         mSelYear = year;
         mSelMonth = month;
         mSelDay = day;
-    }
-
-    /**
-     * 设置选中的月份
-     *
-     * @param year
-     * @param month
-     */
-    private void setSelectYearMonthDate(int year, int month) {
-        mSelYear = year;
-        mSelMonth = month;
     }
 
     /**
@@ -284,7 +294,7 @@ public class MonthDateView extends View {
      * 左点击，日历向后翻页
      */
     public void onLeftClick() {
-        if (minYear == mSelYear && minMonth == mSelMonth + 1) return;
+
         int year = mSelYear;
         int month = mSelMonth;
         int day = mSelDay;
@@ -292,13 +302,13 @@ public class MonthDateView extends View {
             year = mSelYear - 1;
             month = 11;
         } else if (DateUtils.getMonthDays(year, month) == day) {
-            //如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
+            //如果当前日期为该月最后一天，当向前推的时候，就需要改变选中的日期
             month = month - 1;
             day = DateUtils.getMonthDays(year, month);
         } else {
             month = month - 1;
         }
-        setSelectYearMonth(year, month, 1);
+        setSelectYearMonth(year, month, 50);
         forceLayout();
         measure(0, 0);
         requestLayout();
@@ -309,7 +319,7 @@ public class MonthDateView extends View {
      * 右点击，日历向前翻页
      */
     public void onRightClick() {
-        if (maxYear == mSelYear && maxMonth == mSelMonth + 1) return;
+
         int year = mSelYear;
         int month = mSelMonth;
         int day = mSelDay;
@@ -323,7 +333,7 @@ public class MonthDateView extends View {
         } else {
             month = month + 1;
         }
-        setSelectYearMonth(year, month, 1);
+        setSelectYearMonth(year, month, 50);
         forceLayout();
         measure(0, 0);
         requestLayout();
@@ -346,13 +356,12 @@ public class MonthDateView extends View {
      * @return
      */
     public int getmSelMonth() {
-        return mSelMonth;
+        return mSelMonth+1;
     }
 
     /**
      * 获取选择的日期
      *
-     * @param mSelDay
      */
     public int getmSelDay() {
         return this.mSelDay;
