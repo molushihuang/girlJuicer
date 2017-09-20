@@ -22,20 +22,15 @@ public class MonthDateView extends View {
     private final int NUM_COLUMNS = 7;
     private int NUM_ROWS = 6;//行数
     private Paint mPaint;
-    private int mSelectDayColor = Color.parseColor("#FFFFFF");
     private int mSelectBGColor;//点击选中的背景颜色
-    private int mCurrentColor;
     private int mCircleColor;//当前日期框的颜色
     private int mEnableDateColor; //点击选中的文字颜色
     private int mUnableDateColor;//文字的基本颜色
-    private int mRelaxColor;
-    private int mWorkColor;
-    private int mPriceColor;
     private int mDateHeight;
     private int mCurrYear, mCurrMonth, mCurrDay;//当前时间
     private int mSelYear, mSelMonth, mSelDay;//选择的时间
     private float mColumnSize, mRowSize;
-    private int mDaySize, mPriceSize;
+    private int mDaySize;
     private TextView tv_date, tv_week;
     private int weekRow;//周几
     private int[][] daysString;
@@ -43,8 +38,7 @@ public class MonthDateView extends View {
     private DateClick dateClick;
     private int mMarginSize = 1;
 
-
-    private int mTouchSlop;
+    private int mTouchSlop;//判断是否移动的最小距离
 
     public MonthDateView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,14 +46,9 @@ public class MonthDateView extends View {
         mEnableDateColor = typedArray.getColor(R.styleable.CalendarView_EnableDateColor, Color.parseColor("#000000"));
         mUnableDateColor = typedArray.getColor(R.styleable.CalendarView_UnableDateColor, Color.parseColor("#CBCBCB"));
         mCircleColor = typedArray.getColor(R.styleable.CalendarView_CircleColor, Color.parseColor("#68CB00"));
-        mRelaxColor = typedArray.getColor(R.styleable.CalendarView_RelaxColor, Color.parseColor("#65CD00"));
-        mWorkColor = typedArray.getColor(R.styleable.CalendarView_WorkColor, Color.parseColor("#FF9B12"));
-        mPriceColor = typedArray.getColor(R.styleable.CalendarView_PriceColor, Color.parseColor("#FF9B12"));
         mSelectBGColor = typedArray.getColor(R.styleable.CalendarView_SelectBGColor, Color.parseColor("#13A4D3"));
-        mCurrentColor = typedArray.getColor(R.styleable.CalendarView_CurrentColor, Color.parseColor("#FF0000"));
         mDateHeight = (int) typedArray.getDimension(R.styleable.CalendarView_DateHeight, 66);
         mDaySize = (int) typedArray.getDimension(R.styleable.CalendarView_DateSize, 15);
-        mPriceSize = (int) typedArray.getDimension(R.styleable.CalendarView_PriceSize, 12);
         typedArray.recycle();
 
         Calendar calendar = Calendar.getInstance();
@@ -213,12 +202,6 @@ public class MonthDateView extends View {
         canvas.drawCircle(circleX, circley, mCircleRadius, mPaint);
     }
 
-
-    @Override
-    public boolean performClick() {
-        return super.performClick();
-    }
-
     private int downX = 0, downY = 0;
 
     @Override
@@ -234,11 +217,11 @@ public class MonthDateView extends View {
             case MotionEvent.ACTION_UP:
                 int upX = (int) event.getX();
                 int upY = (int) event.getY();
-//                if (upX - downX > 0 && Math.abs(upX - downX) > mTouchSlop) {//左滑
-//                    onLeftClick();
-//                } else if (upX - downX < 0 && Math.abs(upX - downX) > mTouchSlop) {//右滑
-//                    onRightClick();
-//                }
+                if (upX - downX > 0 && Math.abs(upX - downX) > mTouchSlop) {//左滑
+                    onLeftClick();
+                } else if (upX - downX < 0 && Math.abs(upX - downX) > mTouchSlop) {//右滑
+                    onRightClick();
+                }
                 if (Math.abs(upX - downX) < 10 && Math.abs(upY - downY) < 10) {//点击事件
                     performClick();
                     doClickAction((upX + downX) / 2, (upY + downY) / 2);
@@ -368,15 +351,6 @@ public class MonthDateView extends View {
     }
 
     /**
-     * 选择日期的颜色，默认为白色
-     *
-     * @param mSelectDayColor
-     */
-    public void setmSelectDayColor(int mSelectDayColor) {
-        this.mSelectDayColor = mSelectDayColor;
-    }
-
-    /**
      * 选中日期的背景颜色，默认蓝色
      *
      * @param mSelectBGColor
@@ -385,14 +359,6 @@ public class MonthDateView extends View {
         this.mSelectBGColor = mSelectBGColor;
     }
 
-    /**
-     * 当前日期不是选中的颜色，默认红色
-     *
-     * @param mCurrentColor
-     */
-    public void setmCurrentColor(int mCurrentColor) {
-        this.mCurrentColor = mCurrentColor;
-    }
 
     /**
      * 日期的大小，默认18sp

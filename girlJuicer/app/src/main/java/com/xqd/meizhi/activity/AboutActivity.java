@@ -13,10 +13,12 @@ import com.xqd.meizhi.activity.base.BaseActivity;
 
 public class AboutActivity extends BaseActivity {
 
+
     @Bind(R.id.tv_version)
     TextView tvVersion;
     @Bind(R.id.main_toolbar)
     Toolbar toolbar;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_about;
@@ -38,6 +40,7 @@ public class AboutActivity extends BaseActivity {
 
 
         tvVersion.setText(AppUtils.getVersionName(this));
+
     }
 
 

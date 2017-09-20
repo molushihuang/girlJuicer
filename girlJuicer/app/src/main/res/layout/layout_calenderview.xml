@@ -81,13 +81,8 @@
             calendar:EnableDateColor="#ffffff"
             calendar:UnableDateColor="#000000"
             calendar:CircleColor="#cbcbcb"
-            calendar:RelaxColor="#68CB00"
-            calendar:WorkColor="#FF9B12"
-            calendar:PriceColor="#FF9B12"
             calendar:SelectBGColor="@color/blue"
-            calendar:CurrentColor="#68CB00"
             calendar:DateHeight="35dp"
-            calendar:PriceSize="10sp"
             calendar:DateSize="14sp"/>
 
     <RelativeLayout

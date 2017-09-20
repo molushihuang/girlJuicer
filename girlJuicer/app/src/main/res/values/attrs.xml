@@ -21,17 +21,13 @@
         <attr name="metaButtonBarStyle" format="reference"/>
         <attr name="metaButtonBarButtonStyle" format="reference"/>
     </declare-styleable>
+
     <declare-styleable name="CalendarView">
         <attr name="EnableDateColor" format="reference|color"/>			<!-- 可用事务日期的颜色 -->
         <attr name="UnableDateColor" format="reference|color"/>			<!-- 不可用事务日期的颜色 -->
-        <attr name="CurrentColor" format="reference|color"/>			<!-- 今日日期的颜色 -->
         <attr name="SelectBGColor" format="reference|color"/>			<!-- 选择日期的背景颜色 -->
         <attr name="CircleColor" format="reference|color"/>				<!-- 事务圆的颜色 -->
-        <attr name="RelaxColor" format="reference|color"/>				<!-- 节假日的颜色 -->
-        <attr name="WorkColor" format="reference|color"/>				<!-- 调休日期的颜色 -->
-        <attr name="PriceColor" format="reference|color"/>				<!-- 底部事务文字的颜色 -->
         <attr name="DateSize" format="dimension"/>						<!-- 日期的大小 -->
-        <attr name="PriceSize" format="dimension"/>						<!-- 事务文字的颜色 -->
         <attr name="DateHeight" format="dimension"/>					<!-- 日期的单行高度 -->
     </declare-styleable>
 
