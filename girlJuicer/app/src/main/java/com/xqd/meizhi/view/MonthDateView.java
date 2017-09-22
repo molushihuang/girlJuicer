@@ -26,15 +26,15 @@ public class MonthDateView extends View {
     private int mCircleColor;//当前日期框的颜色
     private int mEnableDateColor; //点击选中的文字颜色
     private int mUnableDateColor;//文字的基本颜色
-    private int mDateHeight;
+    private int mDateHeight; //每一框的高度
     private int mCurrYear, mCurrMonth, mCurrDay;//当前时间
     private int mSelYear, mSelMonth, mSelDay;//选择的时间
     private float mColumnSize, mRowSize;
-    private int mDaySize;
+    private int mDaySize;//文字大小
     private TextView tv_date, tv_week;
     private int weekRow;//周几
     private int[][] daysString;
-    private int mCircleRadius = 6;
+    private int mCircleRadius = 6;//圆半径
     private DateClick dateClick;
     private int mMarginSize = 1;
 
@@ -114,15 +114,31 @@ public class MonthDateView extends View {
             }
 
             //绘制点击选择的那天背景矩形
+//            if (dayString.equals(mSelDay + "")) {
+//                //绘制背景色矩形
+//                float startRecX = mColumnSize * column + mMarginSize;
+//                float startRecY = mRowSize * row + mMarginSize;
+//                float endRecX = startRecX + mColumnSize - 2 * mMarginSize;
+//                float endRecY = startRecY + mRowSize - 2 * mMarginSize;
+//                mPaint.setColor(mSelectBGColor);
+//                mPaint.setStyle(Style.FILL);
+//                canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
+//                //记录第几列，即第几周
+//                weekRow = column;
+//
+//                mPaint.setColor(mEnableDateColor);
+//                mPaint.setStyle(Style.STROKE);
+//                canvas.drawText(dayString, startX, startY, mPaint);
+//            }
+
+            //绘制点击选择的那天背景圆形
             if (dayString.equals(mSelDay + "")) {
-                //绘制背景色矩形
-                float startRecX = mColumnSize * column + mMarginSize;
-                float startRecY = mRowSize * row + mMarginSize;
-                float endRecX = startRecX + mColumnSize - 2 * mMarginSize;
-                float endRecY = startRecY + mRowSize - 2 * mMarginSize;
                 mPaint.setColor(mSelectBGColor);
                 mPaint.setStyle(Style.FILL);
-                canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
+                float circleX = (float) (mColumnSize * column + mColumnSize / 2);
+                float circley = (float) (mRowSize * row + mRowSize / 2);
+                canvas.drawCircle(circleX, circley, mColumnSize / 3, mPaint);
+
                 //记录第几列，即第几周
                 weekRow = column;
 
@@ -339,12 +355,11 @@ public class MonthDateView extends View {
      * @return
      */
     public int getmSelMonth() {
-        return mSelMonth+1;
+        return mSelMonth + 1;
     }
 
     /**
      * 获取选择的日期
-     *
      */
     public int getmSelDay() {
         return this.mSelDay;

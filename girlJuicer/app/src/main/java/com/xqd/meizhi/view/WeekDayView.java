@@ -11,13 +11,13 @@ import android.view.View;
 
 public class WeekDayView extends View {
     //上横线颜色
-    private int mTopLineColor = Color.parseColor("#0076FF");
+    private int mTopLineColor = Color.parseColor("#ffffff");
     //下横线颜色
-    private int mBottomLineColor = Color.parseColor("#0076FF");
+    private int mBottomLineColor = Color.parseColor("#ffffff");
     //周一到周五的颜色
-    private int mWeedayColor = Color.parseColor("#0076FF");
+    private int mWeedayColor = Color.parseColor("#666666");
     //周六、周日的颜色
-    private int mWeekendColor = Color.parseColor("#fa4451");
+    private int mWeekendColor = Color.parseColor("#666666");
     //线的宽度
     private int mStrokeWidth = 4;
     private int mWeekSize = 14;

@@ -4,15 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.xqd.meizhi.R;
 
 
 public class CalendarView extends LinearLayout {
-	private ImageView iv_left;
-	private ImageView iv_right;
+	private TextView tv_left;
+	private TextView tv_right;
 	private TextView tv_date;
 	private TextView tv_week;
 	private TextView tv_today;
@@ -22,8 +21,8 @@ public class CalendarView extends LinearLayout {
 	public CalendarView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		View view = LayoutInflater.from(context).inflate(R.layout.layout_calenderview, this);
-		iv_left = (ImageView) view.findViewById(R.id.iv_left);
-		iv_right = (ImageView) view.findViewById(R.id.iv_right);
+		tv_left = (TextView) view.findViewById(R.id.tv_left);
+		tv_right = (TextView) view.findViewById(R.id.tv_right);
 		monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
 		tv_date = (TextView) view.findViewById(R.id.date_text);
 		tv_week  =(TextView) view.findViewById(R.id.selectDate_text);
@@ -45,15 +44,15 @@ public class CalendarView extends LinearLayout {
 	 * 设置监听
 	 */
 	private void setOnlistener(){
-		iv_left.setOnClickListener(new OnClickListener() {
+		tv_left.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				monthDateView.onLeftClick();
 			}
 		});
-		
-		iv_right.setOnClickListener(new OnClickListener() {
+
+		tv_right.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
