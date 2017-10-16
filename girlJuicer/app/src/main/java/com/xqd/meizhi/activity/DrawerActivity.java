@@ -189,6 +189,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 7, 7, "socket_test");
         menu.add(0, 8, 8, "calender_test");
         menu.add(0, 9, 9, "video_test");
+        menu.add(0, 10, 10, "capture_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -237,6 +238,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case 9:
                 jump2Activity(VideoTestActivity.class);
+                break;
+            case 10:
+                jump2Activity(CaptureActivity.class);
                 break;
         }
         return super.onOptionsItemSelected(item);

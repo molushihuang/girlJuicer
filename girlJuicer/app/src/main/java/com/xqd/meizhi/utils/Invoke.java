@@ -39,6 +39,8 @@ public class Invoke {
                 Manifest.permission.SYSTEM_ALERT_WINDOW,
                 Manifest.permission.GET_ACCOUNTS,
                 Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.CAMERA,
+                Manifest.permission.VIBRATE,
                 Manifest.permission.RECEIVE_BOOT_COMPLETED,
                 Manifest.permission.PROCESS_OUTGOING_CALLS,
                 Manifest.permission.WRITE_APN_SETTINGS};

@@ -95,4 +95,8 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="appwidget_text">小部件测试</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="permissions_camera_error">相机无法完成初始化,请正确授权。</string>
+    <string name="str_request_camera_message">请求获取相机权限</string>
+    <string name="qr_scan_tips">将二维码/条码放入框内，即可自动扫描</string>
 </resources>

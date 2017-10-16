@@ -20,4 +20,5 @@
     <color name="black_overlay">#66000000</color>
     <color name="black_tran">#88000000</color>
     <color name="green_1">#6a9b15</color>
+    <color name="white40">#40FFFFFF</color>
 </resources>

@@ -62,6 +62,16 @@
     <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
 
+    <!--该权限用于获取手机相机使用权限，比如发送图片动弹需要拍照-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--该权限用于获取手机相机使用闪光灯权限，比如二维码扫描需打开闪光灯-->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!--该特性group用于访问系统硬件相机与相机自动对焦功能，比如发布照片动弹，扫描二维码时需要-->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--该权限用于访问震动传感器，比如当发送动弹选择图片长按多图进行位置移动时震动反馈需要-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
             android:name=".activity.base.BaseApplication"
             android:allowBackup="true"
@@ -154,6 +164,8 @@
         <activity android:name=".activity.CanvasDemoActivity">
         </activity>
         <activity android:name=".activity.CalenderActivity">
+        </activity>
+        <activity android:name=".activity.CaptureActivity">
         </activity>
         <activity android:name=".activity.VideoTestActivity"
                   android:configChanges="orientation|screenSize|keyboardHidden">

@@ -153,7 +153,6 @@ public class PictruePreviewActivity extends BaseActivity implements PicturePager
                     save(savUrl);
                 } else {
                     T.showShort(this, "很遗憾您手机6.0系统分享权限设置失败");
-
                 }
                 break;
         }
