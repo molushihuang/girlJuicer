@@ -40,6 +40,8 @@ public class MonthDateView extends View {
 
     private int mTouchSlop;//判断是否移动的最小距离
 
+
+
     public MonthDateView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CalendarView);

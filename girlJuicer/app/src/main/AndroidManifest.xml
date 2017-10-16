@@ -155,6 +155,9 @@
         </activity>
         <activity android:name=".activity.CalenderActivity">
         </activity>
+        <activity android:name=".activity.VideoTestActivity"
+                  android:configChanges="orientation|screenSize|keyboardHidden">
+        </activity>
         <activity
                 android:name=".activity.MapActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
