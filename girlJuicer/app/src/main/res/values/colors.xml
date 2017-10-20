@@ -13,6 +13,7 @@
     <color name="black">#333333</color>
     <color name="gray">#7f7f7f</color>
     <color name="blue">#0076FF</color>
+    <color name="back_bg_blue">#002e53</color>
     <color name="divider_gray">#e8e8e9</color>
     <color name="light_gray">#CCCCCC</color>
     <color name="track_green_color">#ade93e</color>

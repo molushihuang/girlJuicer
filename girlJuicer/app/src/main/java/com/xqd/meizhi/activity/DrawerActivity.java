@@ -190,6 +190,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 8, 8, "calender_test");
         menu.add(0, 9, 9, "video_test");
         menu.add(0, 10, 10, "capture_test");
+        menu.add(0, 11, 11, "viewpager_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -241,6 +242,9 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 break;
             case 10:
                 jump2Activity(CaptureActivity.class);
+                break;
+            case 11:
+                jump2Activity(ViewpagerCardActivity.class);
                 break;
         }
         return super.onOptionsItemSelected(item);

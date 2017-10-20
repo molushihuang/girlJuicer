@@ -167,6 +167,10 @@
         </activity>
         <activity android:name=".activity.CaptureActivity">
         </activity>
+        <activity android:name=".activity.TabLayoutActivity">
+        </activity>
+        <activity android:name=".activity.ViewpagerCardActivity">
+        </activity>
         <activity android:name=".activity.VideoTestActivity"
                   android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
