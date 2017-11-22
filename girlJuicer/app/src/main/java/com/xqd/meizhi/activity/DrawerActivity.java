@@ -75,10 +75,23 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
         SpacesItemDecoration decoration = new SpacesItemDecoration(16);
         mRecyclerView.addItemDecoration(decoration);
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mRecycleAdapter);
-        mRecyclerView.addOnScrollListener(getOnBottomListener(layoutManager));
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                boolean isBottom = isSlideToBottom(recyclerView);
+                if (!mSwipeRefreshLayout.isRefreshing() && isBottom) {
+                    if (!mIsFirstTimeTouchBottom) {
+                        mSwipeRefreshLayout.setRefreshing(true);
+                        mPageNum += 1;
+                        loadData(mPageNum, false);
+                    } else {
+                        mIsFirstTimeTouchBottom = false;
+                    }
+                }
+            }
+        });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,22 +103,12 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
     }
 
-    RecyclerView.OnScrollListener getOnBottomListener(final StaggeredGridLayoutManager layoutManager) {
-        return new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView rv, int dx, int dy) {
-                boolean isBottom = layoutManager.findLastCompletelyVisibleItemPositions(new int[2])[1] >= mRecycleAdapter.getItemCount() - 6;
-                if (!mSwipeRefreshLayout.isRefreshing() && isBottom) {
-                    if (!mIsFirstTimeTouchBottom) {
-//                        mSwipeRefreshLayout.setRefreshing(true);
-                        mPageNum += 1;
-                        loadData(mPageNum, false);
-                    } else {
-                        mIsFirstTimeTouchBottom = false;
-                    }
-                }
-            }
-        };
+    //判断是否滑动到底部
+    private boolean isSlideToBottom(RecyclerView recyclerView) {
+        if (recyclerView == null) return false;
+        if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
+            return true;
+        return false;
     }
 
     /**
@@ -129,7 +132,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
             @Override
             public void onFailure(ws_code code, String message) {
-
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -189,7 +192,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 7, 7, "socket_test");
         menu.add(0, 8, 8, "calender_test");
         menu.add(0, 9, 9, "video_test");
-        menu.add(0, 10, 10, "capture_test");
+        menu.add(0, 10, 10, "tablayout_test");
         menu.add(0, 11, 11, "viewpager_test");
         return super.onCreateOptionsMenu(menu);
     }
@@ -241,7 +244,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 jump2Activity(VideoTestActivity.class);
                 break;
             case 10:
-                jump2Activity(CaptureActivity.class);
+                jump2Activity(TabLayoutActivity.class);
                 break;
             case 11:
                 jump2Activity(ViewpagerCardActivity.class);

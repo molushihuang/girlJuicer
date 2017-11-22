@@ -1,18 +1,21 @@
 package com.xqd.meizhi.activity;
 
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import butterknife.Bind;
 import com.anthole.quickdev.ui.autolayout.utils.AutoUtils;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
 import com.xqd.meizhi.adapter.BannerAdapter;
+import com.xqd.meizhi.adapter.ShadowTransformer;
+import com.xqd.meizhi.view.ClipViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +28,13 @@ import java.util.List;
 public class BannerTestActivity extends BaseActivity {
 
     @Bind(R.id.view_pager)
-    ViewPager mViewPager;
+    ClipViewPager mViewPager;
     @Bind(R.id.fl_point)
     LinearLayout pointers;
     @Bind(R.id.main_toolbar)
     Toolbar toolbar;
+    @Bind(R.id.rl_view)
+    RelativeLayout rlView;
 
     BannerAdapter mBannerAdapter;
     List<String> mList = new ArrayList<>();
@@ -40,6 +45,8 @@ public class BannerTestActivity extends BaseActivity {
     int pointDisablePadding = AutoUtils.getPercentWidthSize(2);
     LinearLayout.LayoutParams layoutParamsPoint = new LinearLayout.LayoutParams(pointSize, pointSize);
     boolean isStop = false;
+
+    ShadowTransformer mShadowTransformer;
 
     @Override
     protected int getLayoutId() {
@@ -57,54 +64,70 @@ public class BannerTestActivity extends BaseActivity {
         // 有小箭头，并且图标可以点击
         actionBar.setDisplayShowHomeEnabled(false);
 
-        for (int i = 0; i < 5; i++) {
-            mList.add("https://ws1.sinaimg.cn/large/610dc034ly1fgchgnfn7dj20u00uvgnj.jpg");
+        mList.add("https://ws1.sinaimg.cn/large/610dc034ly1fgchgnfn7dj20u00uvgnj.jpg");
+        mList.add("http://7xi8d6.com1.z0.glb.clouddn.com/20171012073108_0y12KR_anri.kumaki_12_10_2017_7_30_58_141.jpeg");
+        mList.add("http://7xi8d6.com1.z0.glb.clouddn.com/20171011084856_0YQ0jN_joanne_722_11_10_2017_8_39_5_505.jpeg");
+        mList.add("http://7xi8d6.com1.z0.glb.clouddn.com/20171012073213_p4H630_joycechu_syc_12_10_2017_7_32_7_433.jpeg");
+        mList.add("http://7xi8d6.com1.z0.glb.clouddn.com/20171101141835_yQYTXc_enakorin_1_11_2017_14_16_45_351.jpeg");
 
-        }
         layoutParamsPoint.leftMargin = AutoUtils.getPercentWidthSize(7);
         layoutParamsPoint.rightMargin = AutoUtils.getPercentWidthSize(7);
 
-        mBannerAdapter = new BannerAdapter(this, mList);
-        mViewPager.setAdapter(mBannerAdapter);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        rlView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                currentIndex = position % mList.size();//余数就是正确的位置
-                resetPoints();
-                setInitCurrentPoint();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public boolean onTouch(View v, MotionEvent event) {
+                return mViewPager.dispatchTouchEvent(event);
             }
         });
 
-        initPoint();
+
+        mBannerAdapter = new BannerAdapter(this, mList);
+        mShadowTransformer = new ShadowTransformer(mViewPager, mBannerAdapter);
+        mViewPager.setPageTransformer(false, mShadowTransformer);
+        mViewPager.setAdapter(mBannerAdapter);
+        mViewPager.setOffscreenPageLimit(5);
+//        mViewPager.setCurrentItem(2+mList.size()*100);
+//        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+////                currentIndex = position % mList.size();//余数就是正确的位置
+////                resetPoints();
+////                setInitCurrentPoint();
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+
+//        mViewPager.setPageMargin(AutoUtils.getPercentWidthSize(10));
+
+//        initPoint();
 
         // 开启新线程，4秒一次更新Banner
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                while (!isStop) {
-                    SystemClock.sleep(4000);//安卓提供的线程休眠的方法，可以避免异常
-                    runOnUiThread(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-
-                        }
-                    });
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                while (!isStop) {
+//                    SystemClock.sleep(4000);//安卓提供的线程休眠的方法，可以避免异常
+//                    runOnUiThread(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+//
+//                        }
+//                    });
+//                }
+//            }
+//        }).start();
 
     }
 
