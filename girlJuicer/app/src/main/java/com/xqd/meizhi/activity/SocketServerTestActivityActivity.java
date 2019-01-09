@@ -1,30 +1,17 @@
 package com.xqd.meizhi.activity;
 
-import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
-import com.anthole.quickdev.commonUtils.StringUtils;
-import com.anthole.quickdev.commonUtils.jsonUtils.JSONUtils;
-import com.bumptech.glide.Glide;
+import butterknife.BindView;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
-import com.xqd.meizhi.bean.GirlBean;
-import com.xqd.meizhi.bean.Parser;
-import com.xqd.meizhi.bean.SocketTestBean;
 import com.xqd.meizhi.socket.SocketServer;
-
-import java.util.List;
 
 public class SocketServerTestActivityActivity extends BaseActivity {
     /**
@@ -33,13 +20,13 @@ public class SocketServerTestActivityActivity extends BaseActivity {
      */
     private SocketServer server = new SocketServer(6667);
 
-    @Bind(R.id.iv_pic)
+    @BindView(R.id.iv_pic)
     ImageView iv_pic;
-    @Bind(R.id.tv_picAd)
+    @BindView(R.id.tv_picAd)
     TextView tv_picAd;
-    @Bind(R.id.tv_videoAd)
+    @BindView(R.id.tv_videoAd)
     TextView tv_videoAd;
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
 
     String msgData;

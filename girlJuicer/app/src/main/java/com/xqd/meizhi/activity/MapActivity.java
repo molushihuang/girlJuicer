@@ -5,7 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.maps.AMap;
@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MapActivity extends BaseActivity implements AMap.OnMyLocationChangeListener {
 
-    @Bind(R.id.mv_map)
+    @BindView(R.id.mv_map)
     MapView mMapView;
 
     AMap aMap;

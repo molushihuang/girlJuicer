@@ -16,7 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.http.RequestHandle;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
@@ -34,15 +34,15 @@ import static com.xqd.meizhi.Constants.IntentKeys.TYPLE;
 
 public class DrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GirlRecycleAdapter.ItemListener {
 
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navigationView;
-    @Bind(R.id.swipe_refresh_widget)
+    @BindView(R.id.swipe_refresh_widget)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @Bind(R.id.recycleview)
+    @BindView(R.id.recycleview)
     RecyclerView mRecyclerView;
 
     private List<GirlBean> mGirlBeanList = new ArrayList<>();
@@ -193,7 +193,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
         menu.add(0, 8, 8, "calender_test");
         menu.add(0, 9, 9, "video_test");
         menu.add(0, 10, 10, "tablayout_test");
-        menu.add(0, 11, 11, "viewpager_test");
+        menu.add(0, 11, 11, "Capture_test");
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -247,7 +247,7 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
                 jump2Activity(TabLayoutActivity.class);
                 break;
             case 11:
-                jump2Activity(ViewpagerCardActivity.class);
+                jump2Activity(CaptureActivity.class);
                 break;
         }
         return super.onOptionsItemSelected(item);

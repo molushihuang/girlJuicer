@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.xqd.meizhi.R;
@@ -24,9 +24,9 @@ import java.util.List;
 
 public class DanmakuActivity extends BaseActivity {
 
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.danmakuView)
+    @BindView(R.id.danmakuView)
     DanmakuView mDanmakuView;
 
     private DanmuControl mDanmuControl;

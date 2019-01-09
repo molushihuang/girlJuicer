@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.commonUtils.T;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.anthole.quickdev.ui.ViewPagerFixed;
@@ -36,7 +36,7 @@ public class PictruePreviewActivity extends BaseActivity implements PicturePager
     public static final String TRANSIT_PIC = "picture";
     private int currentItem = 0;
 
-    @Bind(R.id.vp_photos)
+    @BindView(R.id.vp_photos)
     ViewPagerFixed mViewPager;
 
     PicturePagerAdapter mPagerAdapter;

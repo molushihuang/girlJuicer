@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.xqd.meizhi.R;
 
@@ -23,17 +23,17 @@ import java.util.List;
 
 public class TitleBar extends FrameLayout {
 
-    @Bind(R.id.zroot)
+    @BindView(R.id.zroot)
     View root;
-    @Bind(R.id.ibtn_left)
+    @BindView(R.id.ibtn_left)
     ImageButton ibLeft;
-    @Bind(R.id.tv_titlebar_left)
+    @BindView(R.id.tv_titlebar_left)
     TextView tvTitleLeft;
-    @Bind(R.id.tv_titlebar_title)
+    @BindView(R.id.tv_titlebar_title)
     TextView tvTitle;
-    @Bind(R.id.tv_titlebar_right)
+    @BindView(R.id.tv_titlebar_right)
     TextView tvTitleRight;
-    @Bind(R.id.ibtn_right)
+    @BindView(R.id.ibtn_right)
     ImageButton ibRight;
     private Context mContext = null;
     // 背景

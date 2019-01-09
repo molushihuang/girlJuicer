@@ -43,6 +43,7 @@ public class Invoke {
                 Manifest.permission.VIBRATE,
                 Manifest.permission.RECEIVE_BOOT_COMPLETED,
                 Manifest.permission.PROCESS_OUTGOING_CALLS,
+                Manifest.permission.BODY_SENSORS,
                 Manifest.permission.WRITE_APN_SETTINGS};
 
 

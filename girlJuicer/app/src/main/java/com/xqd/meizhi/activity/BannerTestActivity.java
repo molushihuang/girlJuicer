@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.ui.autolayout.utils.AutoUtils;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
@@ -27,13 +27,13 @@ import java.util.List;
 
 public class BannerTestActivity extends BaseActivity {
 
-    @Bind(R.id.view_pager)
+    @BindView(R.id.view_pager)
     ClipViewPager mViewPager;
-    @Bind(R.id.fl_point)
+    @BindView(R.id.fl_point)
     LinearLayout pointers;
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.rl_view)
+    @BindView(R.id.rl_view)
     RelativeLayout rlView;
 
     BannerAdapter mBannerAdapter;

@@ -2,7 +2,7 @@ package com.xqd.meizhi.activity;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
 import com.xqd.meizhi.adapter.RotationTransformer;
@@ -15,7 +15,7 @@ import com.xqd.meizhi.bean.VirePagerBean;
 
 public class ViewpagerCardActivity extends BaseActivity {
 
-    @Bind(R.id.viewPager)
+    @BindView(R.id.viewPager)
     ViewPager mViewPager;
 
     ViewPagerCardAdapter mViewPagerCardAdapter;

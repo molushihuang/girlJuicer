@@ -2,7 +2,7 @@ package com.xqd.meizhi.activity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 
 public class VideoTestActivity extends BaseActivity {
 
-    @Bind(R.id.video_player)
+    @BindView(R.id.video_player)
     JZVideoPlayerStandard videoPlayer;
 
     @Override

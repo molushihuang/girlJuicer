@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
@@ -30,9 +30,9 @@ import java.util.List;
 public class CollectionActivity extends BaseActivity implements CollectionAdapter.ItemListener {
 
 
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.recycleview)
+    @BindView(R.id.recycleview)
     RecyclerView mRecyclerView;
 
     CollectionAdapter mCollectionAdapter;

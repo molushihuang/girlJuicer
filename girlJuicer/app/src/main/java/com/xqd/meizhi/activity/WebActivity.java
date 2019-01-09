@@ -18,7 +18,7 @@ import android.view.View.OnLongClickListener;
 import android.webkit.*;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.commonUtils.StringUtils;
 import com.anthole.quickdev.commonUtils.T;
 import com.anthole.quickdev.http.PersistentCookieStore;
@@ -44,11 +44,11 @@ public class WebActivity extends BaseActivity {
     private View customView;
     private FrameLayout fullscreenContainer;
     private WebChromeClient.CustomViewCallback customViewCallback;
-    @Bind(R.id.webview)
+    @BindView(R.id.webview)
     WebView webview;
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.pb_web)
+    @BindView(R.id.pb_web)
     ProgressBar pb;
 
     String title;

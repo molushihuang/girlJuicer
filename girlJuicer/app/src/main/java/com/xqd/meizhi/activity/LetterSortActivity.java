@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.ArrayMap;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
 import com.xqd.meizhi.adapter.MyAdapter;
@@ -27,9 +27,9 @@ import java.util.List;
 
 public class LetterSortActivity extends BaseActivity {
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @Bind(R.id.sidebar)
+    @BindView(R.id.sidebar)
     SideBar sideBar;
 
     private List<Contant> mContantList;

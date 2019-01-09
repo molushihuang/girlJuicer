@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.http.RequestParams;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.anthole.quickdev.ui.RequestHelper.base.IParser;
@@ -26,11 +26,11 @@ import static com.xqd.meizhi.Constants.IntentKeys.TYPLE;
 
 public class AndroidActivity extends BaseActivity implements AndroidShowAdapter.ItemListener {
 
-    @Bind(R.id.ptr)
+    @BindView(R.id.ptr)
     PtrMaterialFrameLayout ptr;
-    @Bind(R.id.xlistview)
+    @BindView(R.id.xlistview)
     XListView xlistview;
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
 
     AndroidShowAdapter adapter;

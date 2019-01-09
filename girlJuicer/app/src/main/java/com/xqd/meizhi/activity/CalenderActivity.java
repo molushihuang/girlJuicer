@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.invoke.SystemBarTintInvoke;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
@@ -16,10 +16,11 @@ import com.xqd.meizhi.view.CalendarView;
 
 public class CalenderActivity extends BaseActivity {
 
-    @Bind(R.id.calendarView)
+    @BindView(R.id.calendarView)
     CalendarView mCalendarView;
-    @Bind(R.id.main_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
+
 
     @Override
     protected int getLayoutId() {

@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import butterknife.Bind;
+import butterknife.BindView;
 import com.anthole.quickdev.http.RequestHandle;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
@@ -26,10 +26,10 @@ import java.util.List;
 
 public class GirlRecycleViewActivity extends BaseActivity implements GirlRecycleAdapter.ItemListener {
 
-    @Bind(R.id.swipe_refresh_widget)
+    @BindView(R.id.swipe_refresh_widget)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    @Bind(R.id.recycleview)
+    @BindView(R.id.recycleview)
     RecyclerView mRecyclerView;
 
     private List<GirlBean> mGirlBeanList = new ArrayList<>();
