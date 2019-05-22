@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import butterknife.BindView;
 import com.anthole.quickdev.http.RequestHandle;
 import com.xqd.meizhi.R;
 import com.xqd.meizhi.activity.base.BaseActivity;
@@ -34,15 +33,10 @@ import static com.xqd.meizhi.Constants.IntentKeys.TYPLE;
 
 public class DrawerActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, GirlRecycleAdapter.ItemListener {
 
-    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @BindView(R.id.nav_view)
     NavigationView navigationView;
-    @BindView(R.id.swipe_refresh_widget)
     SwipeRefreshLayout mSwipeRefreshLayout;
-    @BindView(R.id.recycleview)
     RecyclerView mRecyclerView;
 
     private List<GirlBean> mGirlBeanList = new ArrayList<>();
@@ -59,6 +53,11 @@ public class DrawerActivity extends BaseActivity implements NavigationView.OnNav
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        toolbar=findViewById(R.id.main_toolbar);
+        drawer=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        mSwipeRefreshLayout=findViewById(R.id.swipe_refresh_widget);
+        mRecyclerView=findViewById(R.id.recycleview);
 //        SystemBarTintInvoke.apply(this, R.color.blue, true);
 
 //        toolbar.setTitle("444");

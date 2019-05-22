@@ -25,7 +25,7 @@ public abstract class BaseResponseHandler extends TextHttpResponseHandler {
     public void onFailure(final int statusCode, Header[] headers, String responseString, Throwable throwable) {
         try {
 
-//            MLog.e("网络请求失败"+ getRequestURI().toURL(), statusCode + responseString + "\n" + throwable.getMessage());
+            Log.e("网络请求失败"+ getRequestURI().toURL(), statusCode + responseString + "\n" + throwable.getMessage());
             if (statusCode > 400) {
                 onFailure(ws_code.FAIL, "接口异常" + statusCode);
             } else {

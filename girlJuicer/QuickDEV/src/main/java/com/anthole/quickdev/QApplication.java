@@ -1,9 +1,9 @@
 package com.anthole.quickdev;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import com.anthole.quickdev.invoke.FileInvoke;
 
-public abstract class QApplication extends Application{
+public abstract class QApplication extends MultiDexApplication {
 	
 	private static QApplication application;
 	
